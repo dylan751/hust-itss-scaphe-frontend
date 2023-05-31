@@ -1,14 +1,14 @@
 import React from 'react';
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import Shops from './pages/Shops';
+import Homepage from './pages/Homepage';
 
 function App() {
   return (
     <div className="flex items-center justify-center">
       <div>
         <Routes>
-          <Route path="/shops" element={<Shops />} />
+          <Route path="/" element={<Homepage />} />
         </Routes>
       </div>
     </div>
