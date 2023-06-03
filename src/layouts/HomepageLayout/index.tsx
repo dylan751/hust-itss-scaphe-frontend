@@ -11,7 +11,7 @@ const HomepageLayout = (props: Props) => {
       <Navbar />
       {props.children}
       <Footer />
-    </>                                                       
+    </>
   );
 };
 

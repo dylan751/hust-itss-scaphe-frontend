@@ -6,9 +6,9 @@ import Homepage from './pages/Homepage';
 function App() {
   return (
     <div className="">
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-        </Routes>
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+      </Routes>
     </div>
   );
 }

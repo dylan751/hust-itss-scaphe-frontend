@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Container,
   FormControl,
@@ -7,21 +6,16 @@ import {
   InputAdornment,
   InputLabel,
   MenuItem,
-  OutlinedInput,
   Select,
   SelectChangeEvent,
   TextField,
-  Theme,
-  Typography,
-  useTheme,
 } from '@mui/material';
 import CalendarMonthSharpIcon from '@mui/icons-material/CalendarMonthSharp';
 import SearchIcon from '@mui/icons-material/Search';
 import React from 'react';
+import { cityData } from '../../data/city';
+import { ITEM_HEIGHT, ITEM_PADDING_TOP } from '../../constraints/Menu';
 
-const cityData = ['Hà Nội', 'Thanh Hóa', 'Nam Định', 'Hải Dương', 'Đà Nẵng'];
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
 const MenuProps = {
   PaperProps: {
     style: {
@@ -31,27 +25,11 @@ const MenuProps = {
   },
 };
 
-function getStyles(name: string, personName: string[], theme: Theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
 const Filter = () => {
-  const theme = useTheme();
+  const [cityName, setCityName] = React.useState('');
 
-  const [personName, setPersonName] = React.useState<string[]>([]);
-
-  const handleChange = (event: SelectChangeEvent<typeof personName>) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
+  const handleChangeCity = (event: SelectChangeEvent) => {
+    setCityName(event.target.value as string);
   };
   return (
     <Grid
@@ -62,7 +40,7 @@ const Filter = () => {
         fontSize: '25px',
       }}
     >
-      <Container sx={{ maxWidth: '70%'}}>
+      <Container sx={{ maxWidth: '70%' }}>
         <Grid
           sx={{
             margin: '0 20px',
@@ -88,7 +66,7 @@ const Filter = () => {
             variant="outlined"
             sx={{ mt: '30px', height: '50px', width: '150px' }}
           >
-            ソート:場所別
+            ソート: 混雑状況
           </Button>
         </Grid>
         <Grid
@@ -99,65 +77,52 @@ const Filter = () => {
           }}
         >
           <FormControl sx={{ m: '20px 20px 20px 0', width: 200 }}>
-            <InputLabel id="demo-multiple-name-label">City</InputLabel>
+            <InputLabel id="demo-simple-select-label">都市</InputLabel>
             <Select
-              labelId="demo-multiple-name-label"
-              id="demo-multiple-name"
-              value={personName}
-              onChange={handleChange}
-              input={<OutlinedInput label="Name" />}
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={cityName}
+              label="都市"
+              onChange={handleChangeCity}
               MenuProps={MenuProps}
             >
-              {cityData.map((name) => (
-                <MenuItem
-                  key={name}
-                  value={name}
-                  style={getStyles(name, personName, theme)}
-                >
-                  {name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-
-          <FormControl sx={{ m: '20px 20px 20px 0', width: 200 }}>
-            <InputLabel id="demo-multiple-name-label">District</InputLabel>
-            <Select
-              labelId="demo-multiple-name-label"
-              id="demo-multiple-name"
-              value={personName}
-              onChange={handleChange}
-              input={<OutlinedInput label="Name" />}
-              MenuProps={MenuProps}
-            >
-              {cityData.map((name) => (
-                <MenuItem
-                  key={name}
-                  value={name}
-                  style={getStyles(name, personName, theme)}
-                >
-                  {name}
+              {cityData.map((nameCity: string) => (
+                <MenuItem key={nameCity} value={nameCity}>
+                  {nameCity}
                 </MenuItem>
               ))}
             </Select>
           </FormControl>
           <FormControl sx={{ m: '20px 20px 20px 0', width: 200 }}>
-            <InputLabel id="demo-multiple-name-label">Japan</InputLabel>
+            <InputLabel id="demo-simple-select-label">地区</InputLabel>
             <Select
-              labelId="demo-multiple-name-label"
-              id="demo-multiple-name"
-              value={personName}
-              onChange={handleChange}
-              input={<OutlinedInput label="Name" />}
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={cityName}
+              label="地区"
+              onChange={handleChangeCity}
               MenuProps={MenuProps}
             >
-              {cityData.map((name) => (
-                <MenuItem
-                  key={name}
-                  value={name}
-                  style={getStyles(name, personName, theme)}
-                >
-                  {name}
+              {cityData.map((nameCity: string) => (
+                <MenuItem key={nameCity} value={nameCity}>
+                  {nameCity}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl sx={{ m: '20px 20px 20px 0', width: 200 }}>
+            <InputLabel id="demo-simple-select-label">日本人の評価</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={cityName}
+              label="日本人の評価"
+              onChange={handleChangeCity}
+              MenuProps={MenuProps}
+            >
+              {cityData.map((nameCity: string) => (
+                <MenuItem key={nameCity} value={nameCity}>
+                  {nameCity}
                 </MenuItem>
               ))}
             </Select>

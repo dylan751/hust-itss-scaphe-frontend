@@ -6,7 +6,7 @@ const HomePage = () => {
   return (
     <>
       <HomepageLayout>
-      <Filter />
+        <Filter />
       </HomepageLayout>
     </>
   );
