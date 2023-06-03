@@ -10,7 +10,13 @@ import {
 import React from 'react';
 import StarIcon from '@mui/icons-material/Star';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
-const ShopListItem = () => {
+import { ShopModel } from '../../../models/Shop';
+
+interface ShopListItemProps {
+  shop: ShopModel;
+}
+
+const ShopListItem = ({ shop }: ShopListItemProps) => {
   return (
     <Card
       sx={{ width: '21%', border: '1px solid ', float: 'left', margin: '22px' }}
@@ -23,7 +29,7 @@ const ShopListItem = () => {
       />
       <CardContent>
         <Typography variant="h6" component="div" sx={{ fontWeight: 700 }}>
-          コーヒーショップ
+          {shop.name}
         </Typography>
         <Typography sx={{ mb: 1.5, fontWeight: 600 }} color="text.secondary">
           英語OK/個室/…

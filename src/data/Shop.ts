@@ -1,7 +1,9 @@
-export const DummyShop = [
+import { ShopModel } from '../models/Shop';
+
+export const DummyShop: ShopModel[] = [
   {
     id: '6479a2e8d9adbede6db627dc',
-    name: 'Shop',
+    name: 'コーヒーショップ',
     phone: '0339410721',
     city: 'Ha Noi',
     district: 'Hoang Mai',
@@ -12,7 +14,7 @@ export const DummyShop = [
   },
   {
     id: '6479a2e8d9adbede6db627dc',
-    name: 'Shop',
+    name: 'コーヒーショップ',
     phone: '0339410721',
     city: 'Ha Noi',
     district: 'Hoang Mai',
