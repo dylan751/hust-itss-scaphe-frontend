@@ -12,9 +12,10 @@ import {
 } from '@mui/material';
 import CalendarMonthSharpIcon from '@mui/icons-material/CalendarMonthSharp';
 import SearchIcon from '@mui/icons-material/Search';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { cityData } from '../../data/City';
 import { ITEM_HEIGHT, ITEM_PADDING_TOP } from '../../constants/Menu';
+import cityDistrictApi from '../../services/cityDistrictApi';
 
 const MenuProps = {
   PaperProps: {
@@ -27,10 +28,23 @@ const MenuProps = {
 
 const Filter = () => {
   const [cityName, setCityName] = React.useState('');
+  const [cityDistricts, setCityDistricts] = useState<any[]>([]);
+
+  const getAllCityDistricts = async () => {
+    const res = await cityDistrictApi.getListCityDistricts();
+    console.log(res.data);
+    const allCityDistricts = res.data;
+    setCityDistricts(allCityDistricts);
+  };
+
+  useEffect(() => {
+    getAllCityDistricts();
+  }, []);
 
   const handleChangeCity = (event: SelectChangeEvent) => {
     setCityName(event.target.value as string);
   };
+
   return (
     <Container>
       <Grid
@@ -78,9 +92,12 @@ const Filter = () => {
             onChange={handleChangeCity}
             MenuProps={MenuProps}
           >
-            {cityData.map((nameCity: string) => (
-              <MenuItem key={nameCity} value={nameCity}>
-                {nameCity}
+            {cityDistricts.map((cityDistrict: any) => (
+              <MenuItem
+                key={cityDistrict.codename}
+                value={cityDistrict.codename}
+              >
+                {cityDistrict.name}
               </MenuItem>
             ))}
           </Select>
@@ -95,9 +112,12 @@ const Filter = () => {
             onChange={handleChangeCity}
             MenuProps={MenuProps}
           >
-            {cityData.map((nameCity: string) => (
-              <MenuItem key={nameCity} value={nameCity}>
-                {nameCity}
+            {cityDistricts.map((cityDistrict: any) => (
+              <MenuItem
+                key={cityDistrict.codename}
+                value={cityDistrict.codename}
+              >
+                {cityDistrict.name}
               </MenuItem>
             ))}
           </Select>
