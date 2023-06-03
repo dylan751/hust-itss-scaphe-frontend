@@ -77,10 +77,10 @@ const Filter = () => {
           }}
         >
           <FormControl sx={{ m: '20px 20px 20px 0', width: 200 }}>
-            <InputLabel id="demo-simple-select-label">都市</InputLabel>
+            <InputLabel id="city-input-select-label">都市</InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
+              labelId="city-input-select-label"
+              id="city-input-select"
               value={cityName}
               label="都市"
               onChange={handleChangeCity}
@@ -94,10 +94,10 @@ const Filter = () => {
             </Select>
           </FormControl>
           <FormControl sx={{ m: '20px 20px 20px 0', width: 200 }}>
-            <InputLabel id="demo-simple-select-label">地区</InputLabel>
+            <InputLabel id="district-input-select-label">地区</InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
+              labelId="district-input-select-label"
+              id="district-input"
               value={cityName}
               label="地区"
               onChange={handleChangeCity}
@@ -111,10 +111,10 @@ const Filter = () => {
             </Select>
           </FormControl>
           <FormControl sx={{ m: '20px 20px 20px 0', width: 200 }}>
-            <InputLabel id="demo-simple-select-label">日本人の評価</InputLabel>
+            <InputLabel id="review-input-select-label">日本人の評価</InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
+              labelId="review-input-select-label"
+              id="review-input-label"
               value={cityName}
               label="日本人の評価"
               onChange={handleChangeCity}
