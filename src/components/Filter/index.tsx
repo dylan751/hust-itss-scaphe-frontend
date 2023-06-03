@@ -30,13 +30,12 @@ const MenuProps = {
 const Filter = () => {
   const [cityName, setCityName] = React.useState('');
   const [districtName, setDistrictName] = React.useState('');
-  const [star, setStar] = React.useState('5');
+  const [star, setStar] = React.useState('1'); // By default, will fetch all shops with avg stars >= 1 (which means all Shops)
 
   const [cityDistricts, setCityDistricts] = useState<any[]>([]);
 
   const getAllCityDistricts = async () => {
     const res = await cityDistrictApi.getListCityDistricts();
-    console.log(res.data);
     const allCityDistricts = res.data;
     setCityDistricts(allCityDistricts);
   };
@@ -55,6 +54,15 @@ const Filter = () => {
 
   const handleChangeStar = (event: SelectChangeEvent) => {
     setStar(event.target.value as string);
+  };
+
+  const handleSubmit = () => {
+    const filterData = {
+      city: cityName,
+      district: districtName,
+      star: star,
+    };
+    console.log(filterData);
   };
 
   return (
@@ -152,6 +160,13 @@ const Filter = () => {
             ))}
           </Select>
         </FormControl>
+        <Button
+          variant="contained"
+          sx={{ height: '55px', width: '150px' }}
+          onClick={handleSubmit}
+        >
+          Search
+        </Button>
         <CalendarMonthSharpIcon sx={{ fontSize: '40px', marginLeft: 'auto' }} />
       </Grid>
     </Container>
