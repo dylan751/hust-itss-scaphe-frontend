@@ -1,14 +1,4 @@
-import {
-  AppBar,
-  Avatar,
-  Box,
-  Button,
-  Container,
-  Grid,
-  Link,
-  Toolbar,
-  Typography,
-} from '@mui/material';
+import { AppBar, Avatar, Link, Toolbar, Typography } from '@mui/material';
 import React from 'react';
 
 const Navbar = () => {

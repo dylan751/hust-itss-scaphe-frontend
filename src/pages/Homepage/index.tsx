@@ -1,13 +1,15 @@
 import React from 'react';
-import HomepageLayout from '../../layouts/HomepageLayout';
 import Filter from '../../components/Filter';
+import ShopList from '../../components/ShopList';
+import Layout from '../../components/Layout';
 
 const HomePage = () => {
   return (
     <>
-      <HomepageLayout>
+      <Layout>
         <Filter />
-      </HomepageLayout>
+        <ShopList />
+      </Layout>
     </>
   );
 };
