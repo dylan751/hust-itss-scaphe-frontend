@@ -13,9 +13,10 @@ import {
 import CalendarMonthSharpIcon from '@mui/icons-material/CalendarMonthSharp';
 import SearchIcon from '@mui/icons-material/Search';
 import React, { useEffect, useState } from 'react';
-import { cityData } from '../../data/City';
+import StarIcon from '@mui/icons-material/Star';
 import { ITEM_HEIGHT, ITEM_PADDING_TOP } from '../../constants/Menu';
 import cityDistrictApi from '../../services/cityDistrictApi';
+import { starDatas } from '../../data/Star';
 
 const MenuProps = {
   PaperProps: {
@@ -28,6 +29,9 @@ const MenuProps = {
 
 const Filter = () => {
   const [cityName, setCityName] = React.useState('');
+  const [districtName, setDistrictName] = React.useState('');
+  const [star, setStar] = React.useState('5');
+
   const [cityDistricts, setCityDistricts] = useState<any[]>([]);
 
   const getAllCityDistricts = async () => {
@@ -43,6 +47,14 @@ const Filter = () => {
 
   const handleChangeCity = (event: SelectChangeEvent) => {
     setCityName(event.target.value as string);
+    setDistrictName('');
+  };
+  const handleChangeDistrict = (event: SelectChangeEvent) => {
+    setDistrictName(event.target.value as string);
+  };
+
+  const handleChangeStar = (event: SelectChangeEvent) => {
+    setStar(event.target.value as string);
   };
 
   return (
@@ -107,19 +119,20 @@ const Filter = () => {
           <Select
             labelId="district-input-select-label"
             id="district-input"
-            value={cityName}
+            value={districtName}
             label="地区"
-            onChange={handleChangeCity}
+            onChange={handleChangeDistrict}
             MenuProps={MenuProps}
           >
-            {cityDistricts.map((cityDistrict: any) => (
-              <MenuItem
-                key={cityDistrict.codename}
-                value={cityDistrict.codename}
-              >
-                {cityDistrict.name}
-              </MenuItem>
-            ))}
+            {cityDistricts.map(
+              (cityDistrict: any) =>
+                cityDistrict.codename === cityName &&
+                cityDistrict.districts.map((district: any) => (
+                  <MenuItem key={district.codename} value={district.codename}>
+                    {district.name}
+                  </MenuItem>
+                )),
+            )}
           </Select>
         </FormControl>
         <FormControl sx={{ m: '20px 20px 20px 0', width: 200 }}>
@@ -127,14 +140,14 @@ const Filter = () => {
           <Select
             labelId="review-input-select-label"
             id="review-input-label"
-            value={cityName}
+            value={star}
             label="日本人の評価"
-            onChange={handleChangeCity}
+            onChange={handleChangeStar}
             MenuProps={MenuProps}
           >
-            {cityData.map((nameCity: string) => (
-              <MenuItem key={nameCity} value={nameCity}>
-                {nameCity}
+            {starDatas.map((star: string) => (
+              <MenuItem key={star} value={star}>
+                {star} <StarIcon />
               </MenuItem>
             ))}
           </Select>
