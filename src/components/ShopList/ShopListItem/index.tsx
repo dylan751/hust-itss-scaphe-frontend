@@ -13,13 +13,13 @@ import StarHalfIcon from '@mui/icons-material/StarHalf';
 const ShopListItem = () => {
   return (
     <Card
-      sx={{ width: '20%', border: '1px solid ', float: 'left', margin: '20px' }}
+      sx={{ width: '21%', border: '1px solid ', float: 'left', margin: '22px' }}
     >
       {' '}
       <CardMedia
         component="img"
         image="./assets/images/shop.png"
-        alt="Paella dish"
+        alt="CafeShop"
       />
       <CardContent>
         <Typography variant="h6" component="div" sx={{ fontWeight: 700 }}>
