@@ -1,11 +1,14 @@
-import { Button } from '@mui/material';
 import React from 'react';
+import HomepageLayout from '../../layouts/HomepageLayout';
+import Filter from '../../components/Filter';
 
 const HomePage = () => {
   return (
-    <div>
-      <Button variant="contained">Hello World</Button>
-    </div>
+    <>
+      <HomepageLayout>
+        <Filter />
+      </HomepageLayout>
+    </>
   );
 };
 

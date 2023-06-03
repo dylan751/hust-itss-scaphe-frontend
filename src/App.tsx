@@ -5,12 +5,10 @@ import Homepage from './pages/Homepage';
 
 function App() {
   return (
-    <div className="flex items-center justify-center">
-      <div>
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-        </Routes>
-      </div>
+    <div className="">
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+      </Routes>
     </div>
   );
 }
