@@ -1,1 +1,1 @@
-export const DummyStar = [1, 2, 3, 4, 5];
+export const starDatas = ['1', '2', '3', '4', '5'];

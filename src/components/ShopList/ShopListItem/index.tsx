@@ -10,10 +10,10 @@ import {
 import React from 'react';
 import StarIcon from '@mui/icons-material/Star';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
-import { ShopModel } from '../../../models/Shop';
+import { ShopInterface } from '../../../models/Shop';
 
 interface ShopListItemProps {
-  shop: ShopModel;
+  shop: ShopInterface;
 }
 
 const ShopListItem = ({ shop }: ShopListItemProps) => {

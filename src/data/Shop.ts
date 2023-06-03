@@ -1,6 +1,6 @@
-import { ShopModel } from '../models/Shop';
+import { ShopInterface } from '../models/Shop';
 
-export const DummyShop: ShopModel[] = [
+export const DummyShop: ShopInterface[] = [
   {
     id: '6479a2e8d9adbede6db627dc',
     name: 'コーヒーショップ',

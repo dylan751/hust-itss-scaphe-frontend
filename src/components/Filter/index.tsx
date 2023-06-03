@@ -12,9 +12,11 @@ import {
 } from '@mui/material';
 import CalendarMonthSharpIcon from '@mui/icons-material/CalendarMonthSharp';
 import SearchIcon from '@mui/icons-material/Search';
-import React from 'react';
-import { cityData } from '../../data/City';
+import React, { useEffect, useState } from 'react';
+import StarIcon from '@mui/icons-material/Star';
 import { ITEM_HEIGHT, ITEM_PADDING_TOP } from '../../constants/Menu';
+import cityDistrictApi from '../../services/cityDistrictApi';
+import { starDatas } from '../../data/Star';
 
 const MenuProps = {
   PaperProps: {
@@ -27,10 +29,42 @@ const MenuProps = {
 
 const Filter = () => {
   const [cityName, setCityName] = React.useState('');
+  const [districtName, setDistrictName] = React.useState('');
+  const [star, setStar] = React.useState('1'); // By default, will fetch all shops with avg stars >= 1 (which means all Shops)
+
+  const [cityDistricts, setCityDistricts] = useState<any[]>([]);
+
+  const getAllCityDistricts = async () => {
+    const res = await cityDistrictApi.getListCityDistricts();
+    const allCityDistricts = res.data;
+    setCityDistricts(allCityDistricts);
+  };
+
+  useEffect(() => {
+    getAllCityDistricts();
+  }, []);
 
   const handleChangeCity = (event: SelectChangeEvent) => {
     setCityName(event.target.value as string);
+    setDistrictName('');
   };
+  const handleChangeDistrict = (event: SelectChangeEvent) => {
+    setDistrictName(event.target.value as string);
+  };
+
+  const handleChangeStar = (event: SelectChangeEvent) => {
+    setStar(event.target.value as string);
+  };
+
+  const handleSubmit = () => {
+    const filterData = {
+      city: cityName,
+      district: districtName,
+      star: star,
+    };
+    console.log(filterData);
+  };
+
   return (
     <Container>
       <Grid
@@ -78,9 +112,12 @@ const Filter = () => {
             onChange={handleChangeCity}
             MenuProps={MenuProps}
           >
-            {cityData.map((nameCity: string) => (
-              <MenuItem key={nameCity} value={nameCity}>
-                {nameCity}
+            {cityDistricts.map((cityDistrict: any) => (
+              <MenuItem
+                key={cityDistrict.codename}
+                value={cityDistrict.codename}
+              >
+                {cityDistrict.name}
               </MenuItem>
             ))}
           </Select>
@@ -90,16 +127,20 @@ const Filter = () => {
           <Select
             labelId="district-input-select-label"
             id="district-input"
-            value={cityName}
+            value={districtName}
             label="地区"
-            onChange={handleChangeCity}
+            onChange={handleChangeDistrict}
             MenuProps={MenuProps}
           >
-            {cityData.map((nameCity: string) => (
-              <MenuItem key={nameCity} value={nameCity}>
-                {nameCity}
-              </MenuItem>
-            ))}
+            {cityDistricts.map(
+              (cityDistrict: any) =>
+                cityDistrict.codename === cityName &&
+                cityDistrict.districts.map((district: any) => (
+                  <MenuItem key={district.codename} value={district.codename}>
+                    {district.name}
+                  </MenuItem>
+                )),
+            )}
           </Select>
         </FormControl>
         <FormControl sx={{ m: '20px 20px 20px 0', width: 200 }}>
@@ -107,18 +148,25 @@ const Filter = () => {
           <Select
             labelId="review-input-select-label"
             id="review-input-label"
-            value={cityName}
+            value={star}
             label="日本人の評価"
-            onChange={handleChangeCity}
+            onChange={handleChangeStar}
             MenuProps={MenuProps}
           >
-            {cityData.map((nameCity: string) => (
-              <MenuItem key={nameCity} value={nameCity}>
-                {nameCity}
+            {starDatas.map((star: string) => (
+              <MenuItem key={star} value={star}>
+                {star} <StarIcon />
               </MenuItem>
             ))}
           </Select>
         </FormControl>
+        <Button
+          variant="contained"
+          sx={{ height: '55px', width: '150px' }}
+          onClick={handleSubmit}
+        >
+          Search
+        </Button>
         <CalendarMonthSharpIcon sx={{ fontSize: '40px', marginLeft: 'auto' }} />
       </Grid>
     </Container>
