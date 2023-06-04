@@ -1,7 +1,7 @@
 import React from 'react';
 import ShopListItem from './ShopListItem';
 import { Container } from '@mui/system';
-import { ShopInterface } from '../../models/Shop';
+import { ShopInterface } from '../../models/shop';
 
 interface ShopListProps {
   shops: ShopInterface[];

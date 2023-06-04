@@ -1,4 +1,4 @@
-import { ShopInterface } from '../models/Shop';
+import { ShopInterface } from '../models/shop';
 import authAxios from './authAxios';
 
 class shopApi {

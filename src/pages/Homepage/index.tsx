@@ -2,7 +2,7 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import Filter from '../../components/Filter';
 import ShopList from '../../components/ShopList';
 import shopApi from '../../services/shopApi';
-import { ShopInterface } from '../../models/Shop';
+import { ShopInterface } from '../../models/shop';
 import { SelectChangeEvent } from '@mui/material';
 
 const HomePage = () => {
@@ -13,9 +13,7 @@ const HomePage = () => {
   const [districtName, setDistrictName] = useState('');
   const [star, setStar] = useState('1'); // By default, will fetch all shops with avg stars >= 1 (which means all Shops)
 
-  const handleChangeSearchTerm = (
-    event: ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleChangeSearchTerm = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value as string);
   };
 
@@ -50,7 +48,7 @@ const HomePage = () => {
       districtName,
       star,
     );
-    const allShops = res.data.data.shops;
+    const allShops: ShopInterface[] = res.data.data.shops;
     setShops(allShops);
   };
 
