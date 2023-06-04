@@ -27,11 +27,25 @@ const MenuProps = {
   },
 };
 
-const Filter = () => {
-  const [cityName, setCityName] = React.useState('');
-  const [districtName, setDistrictName] = React.useState('');
-  const [star, setStar] = React.useState('1'); // By default, will fetch all shops with avg stars >= 1 (which means all Shops)
+interface FilterProps {
+  cityName: string;
+  districtName: string;
+  star: string;
+  handleChangeCity: (event: SelectChangeEvent) => void;
+  handleChangeDistrict: (event: SelectChangeEvent) => void;
+  handleChangeStar: (event: SelectChangeEvent) => void;
+  handleClearFilter: () => void;
+}
 
+const Filter = ({
+  cityName,
+  districtName,
+  star,
+  handleChangeCity,
+  handleChangeDistrict,
+  handleChangeStar,
+  handleClearFilter,
+}: FilterProps) => {
   const [cityDistricts, setCityDistricts] = useState<any[]>([]);
 
   const getAllCityDistricts = async () => {
@@ -43,27 +57,6 @@ const Filter = () => {
   useEffect(() => {
     getAllCityDistricts();
   }, []);
-
-  const handleChangeCity = (event: SelectChangeEvent) => {
-    setCityName(event.target.value as string);
-    setDistrictName('');
-  };
-  const handleChangeDistrict = (event: SelectChangeEvent) => {
-    setDistrictName(event.target.value as string);
-  };
-
-  const handleChangeStar = (event: SelectChangeEvent) => {
-    setStar(event.target.value as string);
-  };
-
-  const handleSubmit = () => {
-    const filterData = {
-      city: cityName,
-      district: districtName,
-      star: star,
-    };
-    console.log(filterData);
-  };
 
   return (
     <Container>
@@ -161,11 +154,11 @@ const Filter = () => {
           </Select>
         </FormControl>
         <Button
-          variant="contained"
+          variant="outlined"
           sx={{ height: '55px', width: '150px' }}
-          onClick={handleSubmit}
+          onClick={handleClearFilter}
         >
-          Search
+          Clear Filter
         </Button>
         <CalendarMonthSharpIcon sx={{ fontSize: '40px', marginLeft: 'auto' }} />
       </Grid>
