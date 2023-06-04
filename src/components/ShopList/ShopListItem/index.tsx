@@ -25,8 +25,14 @@ const ShopListItem = ({ shop }: ShopListItemProps) => {
     >
       <CardMedia
         component="img"
-        image="./assets/images/shop.png"
+        image={shop.avatar}
         alt="CafeShop"
+        sx={{
+          width: '100%',
+          height: '150px',
+          objectFit: 'cover',
+          objectPosition: '80% 100%',
+        }}
       />
       <CardContent>
         <Typography variant="h6" component="div" sx={{ fontWeight: 700 }}>
