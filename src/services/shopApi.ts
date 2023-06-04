@@ -2,9 +2,14 @@ import { ShopInterface } from '../models/Shop';
 import authAxios from './authAxios';
 
 class shopApi {
-  getShops = async (cityName: string, districtName: string, star: string) => {
+  getShops = async (
+    searchTerm: string,
+    cityName: string,
+    districtName: string,
+    star: string,
+  ) => {
     return await authAxios(
-      `${process.env.REACT_APP_API_DOMAIN}/api/v1/shops?city=${cityName}&district=${districtName}&star=${star}`,
+      `${process.env.REACT_APP_API_DOMAIN}/api/v1/shops?searchTerm=${searchTerm}&city=${cityName}&district=${districtName}&star=${star}`,
       {
         method: 'GET',
         headers: {
