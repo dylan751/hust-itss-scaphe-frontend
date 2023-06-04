@@ -53,7 +53,6 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    console.log(searchTerm, cityName, districtName, star);
     getAllShops(searchTerm, cityName, districtName, star);
   }, [searchTerm, cityName, districtName, star]);
 
