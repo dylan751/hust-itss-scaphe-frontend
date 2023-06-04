@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import CalendarMonthSharpIcon from '@mui/icons-material/CalendarMonthSharp';
 import SearchIcon from '@mui/icons-material/Search';
-import React, { useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import StarIcon from '@mui/icons-material/Star';
 import { ITEM_HEIGHT, ITEM_PADDING_TOP } from '../../constants/Menu';
 import cityDistrictApi from '../../services/cityDistrictApi';
@@ -28,9 +28,11 @@ const MenuProps = {
 };
 
 interface FilterProps {
+  searchTerm: string;
   cityName: string;
   districtName: string;
   star: string;
+  handleChangeSearchTerm: (event: ChangeEvent<HTMLInputElement>) => void;
   handleChangeCity: (event: SelectChangeEvent) => void;
   handleChangeDistrict: (event: SelectChangeEvent) => void;
   handleChangeStar: (event: SelectChangeEvent) => void;
@@ -38,9 +40,11 @@ interface FilterProps {
 }
 
 const Filter = ({
+  searchTerm,
   cityName,
   districtName,
   star,
+  handleChangeSearchTerm,
   handleChangeCity,
   handleChangeDistrict,
   handleChangeStar,
@@ -73,9 +77,11 @@ const Filter = ({
           type="search"
           label="Search"
           sx={{ width: '70%', mt: '30px', mr: '20px' }}
+          value={searchTerm}
+          onChange={handleChangeSearchTerm}
           InputProps={{
             endAdornment: (
-              <InputAdornment position="end">
+              <InputAdornment position="start">
                 <SearchIcon />
               </InputAdornment>
             ),

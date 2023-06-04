@@ -10,7 +10,7 @@ import {
 import React from 'react';
 import StarIcon from '@mui/icons-material/Star';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
-import { ShopInterface } from '../../../models/Shop';
+import { ShopInterface } from '../../../models/shop';
 import { calculateAvgStar } from '../../../utils/calculateAvgStar';
 
 interface ShopListItemProps {
@@ -23,7 +23,6 @@ const ShopListItem = ({ shop }: ShopListItemProps) => {
     <Card
       sx={{ width: '21%', border: '1px solid ', float: 'left', margin: '22px' }}
     >
-      {' '}
       <CardMedia
         component="img"
         image="./assets/images/shop.png"

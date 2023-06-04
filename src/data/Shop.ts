@@ -1,8 +1,8 @@
-import { ShopInterface } from '../models/Shop';
+import { ShopInterface } from '../models/shop';
 
 export const DummyShop: ShopInterface[] = [
   {
-    id: '6479a2e8d9adbede6db627dc',
+    _id: '6479a2e8d9adbede6db627dc',
     name: 'コーヒーショップ',
     phone: '0339410721',
     city: 'Ha Noi',
@@ -14,7 +14,7 @@ export const DummyShop: ShopInterface[] = [
     ratings: [],
   },
   {
-    id: '6479a2e8d9adbede6db627dc',
+    _id: '6479a2e8d9adbede6db627dc',
     name: 'コーヒーショップ',
     phone: '0339410721',
     city: 'Ha Noi',
@@ -26,7 +26,7 @@ export const DummyShop: ShopInterface[] = [
     ratings: [],
   },
   {
-    id: '6479a2e8d9adbede6db627dc',
+    _id: '6479a2e8d9adbede6db627dc',
     name: 'Shop',
     phone: '0339410721',
     city: 'Ha Noi',
@@ -38,7 +38,7 @@ export const DummyShop: ShopInterface[] = [
     ratings: [],
   },
   {
-    id: '6479a2e8d9adbede6db627dc',
+    _id: '6479a2e8d9adbede6db627dc',
     name: 'Shop',
     phone: '0339410721',
     city: 'Ha Noi',
@@ -50,7 +50,7 @@ export const DummyShop: ShopInterface[] = [
     ratings: [],
   },
   {
-    id: '6479a2e8d9adbede6db627dc',
+    _id: '6479a2e8d9adbede6db627dc',
     name: 'Shop',
     phone: '0339410721',
     city: 'Ha Noi',
@@ -62,7 +62,7 @@ export const DummyShop: ShopInterface[] = [
     ratings: [],
   },
   {
-    id: '6479a2e8d9adbede6db627dc',
+    _id: '6479a2e8d9adbede6db627dc',
     name: 'Shop',
     phone: '0339410721',
     city: 'Ha Noi',
