@@ -1,25 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import ShopListItem from './ShopListItem';
 import { Container } from '@mui/system';
 import { ShopInterface } from '../../models/Shop';
-import shopApi from '../../services/shopApi';
 
-const ShopList = () => {
-  const [shops, setShops] = useState<ShopInterface[]>([]);
+interface ShopListProps {
+  shops: ShopInterface[];
+}
 
-  const getAllShops = async () => {
-    const res = await shopApi.getShops();
-    const allShops = res.data.data.shops;
-    setShops(allShops);
-  };
-
-  useEffect(() => {
-    getAllShops();
-  }, []);
-
+const ShopList = ({ shops }: ShopListProps) => {
   return (
     <Container>
-      {shops.map((shop: ShopInterface, index) => (
+      {shops.map((shop: ShopInterface, index: number) => (
         <ShopListItem key={index} shop={shop} />
       ))}
     </Container>

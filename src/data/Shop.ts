@@ -11,6 +11,7 @@ export const DummyShop: ShopInterface[] = [
     avatar: '../../assets/images/shop',
     password: 'password',
     traffic: 1,
+    ratings: [],
   },
   {
     id: '6479a2e8d9adbede6db627dc',
@@ -22,6 +23,7 @@ export const DummyShop: ShopInterface[] = [
     avatar: '../../assets/images/shop',
     password: 'password',
     traffic: 1,
+    ratings: [],
   },
   {
     id: '6479a2e8d9adbede6db627dc',
@@ -33,6 +35,7 @@ export const DummyShop: ShopInterface[] = [
     avatar: '../../assets/images/shop',
     password: 'password',
     traffic: 1,
+    ratings: [],
   },
   {
     id: '6479a2e8d9adbede6db627dc',
@@ -44,6 +47,7 @@ export const DummyShop: ShopInterface[] = [
     avatar: '../../assets/images/shop',
     password: 'password',
     traffic: 1,
+    ratings: [],
   },
   {
     id: '6479a2e8d9adbede6db627dc',
@@ -55,6 +59,7 @@ export const DummyShop: ShopInterface[] = [
     avatar: '../../assets/images/shop',
     password: 'password',
     traffic: 1,
+    ratings: [],
   },
   {
     id: '6479a2e8d9adbede6db627dc',
@@ -66,5 +71,6 @@ export const DummyShop: ShopInterface[] = [
     avatar: '../../assets/images/shop',
     password: 'password',
     traffic: 1,
+    ratings: [],
   },
 ];

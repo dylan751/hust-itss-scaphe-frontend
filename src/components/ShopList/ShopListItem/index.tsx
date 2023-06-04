@@ -11,12 +11,14 @@ import React from 'react';
 import StarIcon from '@mui/icons-material/Star';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
 import { ShopInterface } from '../../../models/Shop';
+import { calculateAvgStar } from '../../../utils/calculateAvgStar';
 
 interface ShopListItemProps {
   shop: ShopInterface;
 }
 
 const ShopListItem = ({ shop }: ShopListItemProps) => {
+  const avgStar = calculateAvgStar(shop.ratings);
   return (
     <Card
       sx={{ width: '21%', border: '1px solid ', float: 'left', margin: '22px' }}
@@ -45,7 +47,8 @@ const ShopListItem = ({ shop }: ShopListItemProps) => {
           <Typography
             sx={{ fontSize: '20px', fontWeight: 700, marginRight: '10px' }}
           >
-            4.5
+            {/* 4.5 */}
+            {avgStar}
           </Typography>
           <StarIcon />
           <StarIcon />
