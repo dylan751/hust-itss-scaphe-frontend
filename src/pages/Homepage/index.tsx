@@ -1,9 +1,10 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import Filter from '../../components/Filter';
 import ShopList from '../../components/ShopList';
 import shopApi from '../../services/shopApi';
 import { ShopInterface } from '../../models/shop';
 import { SelectChangeEvent } from '@mui/material';
+import _ from 'lodash';
 
 const HomePage = () => {
   const [shops, setShops] = useState<ShopInterface[]>([]);
@@ -52,8 +53,19 @@ const HomePage = () => {
     setShops(allShops);
   };
 
-  useEffect(() => {
+  const fetchData = (
+    searchTerm: string,
+    cityName: string,
+    districtName: string,
+    star: string,
+  ) => {
     getAllShops(searchTerm, cityName, districtName, star);
+  };
+
+  const debounceLoadData = useCallback(_.debounce(fetchData, 500), []);
+
+  useEffect(() => {
+    debounceLoadData(searchTerm, cityName, districtName, star);
   }, [searchTerm, cityName, districtName, star]);
 
   return (
