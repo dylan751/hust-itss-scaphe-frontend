@@ -5,9 +5,11 @@ import shopApi from '../../services/shopApi';
 import { ShopInterface } from '../../models/shop';
 import { SelectChangeEvent } from '@mui/material';
 import _ from 'lodash';
+import Loading from '../../components/Loading';
 
 const HomePage = () => {
   const [shops, setShops] = useState<ShopInterface[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [searchTerm, setSearchTerm] = useState('');
   const [cityName, setCityName] = useState('');
@@ -43,6 +45,7 @@ const HomePage = () => {
     districtName: string,
     star: string,
   ) => {
+    setIsLoading(true);
     const res = await shopApi.getShops(
       searchTerm,
       cityName,
@@ -51,6 +54,7 @@ const HomePage = () => {
     );
     const allShops: ShopInterface[] = res.data.data.shops;
     setShops(allShops);
+    setIsLoading(false);
   };
 
   const fetchData = (
@@ -81,7 +85,7 @@ const HomePage = () => {
         handleChangeStar={handleChangeStar}
         handleClearFilter={handleClearFilter}
       />
-      <ShopList shops={shops} />
+      {isLoading ? <Loading /> : <ShopList shops={shops} />}
     </>
   );
 };
