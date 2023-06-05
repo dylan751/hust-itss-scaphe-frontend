@@ -77,7 +77,7 @@ const Filter = ({
         <TextField
           id="search"
           type="search"
-          label="Search"
+          label="検索"
           sx={{ width: '70%', mt: '30px', mr: '20px' }}
           value={searchTerm}
           onChange={handleChangeSearchTerm}
@@ -164,10 +164,10 @@ const Filter = ({
         </FormControl>
         <Button
           variant="outlined"
-          sx={{ height: '55px', width: '150px' }}
+          sx={{ height: '55px', width: '170px' }}
           onClick={handleClearFilter}
         >
-          Clear Filter
+          フィルターリセット
         </Button>
         <CalendarMonthSharpIcon sx={{ fontSize: '40px', marginLeft: 'auto' }} />
       </Grid>
