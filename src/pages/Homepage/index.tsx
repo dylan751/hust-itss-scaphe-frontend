@@ -15,6 +15,7 @@ const HomePage = () => {
   const [cityName, setCityName] = useState('');
   const [districtName, setDistrictName] = useState('');
   const [star, setStar] = useState('1'); // By default, will fetch all shops with avg stars >= 1 (which means all Shops)
+  const [sort, setSort] = useState('');
 
   const handleChangeSearchTerm = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value as string);
@@ -32,11 +33,16 @@ const HomePage = () => {
     setStar(event.target.value as string);
   };
 
+  const handleSort = () => {
+    setSort('asc');
+  };
+
   const handleClearFilter = () => {
     setSearchTerm('');
     setCityName('');
     setDistrictName('');
     setStar('1');
+    setSort('');
   };
 
   const getAllShops = async (
@@ -44,6 +50,7 @@ const HomePage = () => {
     cityName: string,
     districtName: string,
     star: string,
+    sort: string,
   ) => {
     setIsLoading(true);
     const res = await shopApi.getShops(
@@ -51,6 +58,7 @@ const HomePage = () => {
       cityName,
       districtName,
       star,
+      sort,
     );
     const allShops: ShopInterface[] = res.data.data.shops;
     setShops(allShops);
@@ -62,15 +70,16 @@ const HomePage = () => {
     cityName: string,
     districtName: string,
     star: string,
+    sort: string,
   ) => {
-    getAllShops(searchTerm, cityName, districtName, star);
+    getAllShops(searchTerm, cityName, districtName, star, sort);
   };
 
   const debounceLoadData = useCallback(_.debounce(fetchData, 500), []);
 
   useEffect(() => {
-    debounceLoadData(searchTerm, cityName, districtName, star);
-  }, [searchTerm, cityName, districtName, star]);
+    debounceLoadData(searchTerm, cityName, districtName, star, sort);
+  }, [searchTerm, cityName, districtName, star, sort]);
 
   return (
     <>
@@ -83,6 +92,7 @@ const HomePage = () => {
         handleChangeCity={handleChangeCity}
         handleChangeDistrict={handleChangeDistrict}
         handleChangeStar={handleChangeStar}
+        handleSort={handleSort}
         handleClearFilter={handleClearFilter}
       />
       {isLoading ? <Loading /> : <ShopList shops={shops} />}

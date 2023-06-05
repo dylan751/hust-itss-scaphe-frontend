@@ -58,7 +58,6 @@ const ShopListItem = ({ shop }: ShopListItemProps) => {
           <Typography
             sx={{ fontSize: '20px', fontWeight: 700, marginRight: '10px' }}
           >
-            {/* 4.5 */}
             {avgStar}
           </Typography>
           <StarIcon />

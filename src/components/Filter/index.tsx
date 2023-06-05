@@ -36,6 +36,7 @@ interface FilterProps {
   handleChangeCity: (event: SelectChangeEvent) => void;
   handleChangeDistrict: (event: SelectChangeEvent) => void;
   handleChangeStar: (event: SelectChangeEvent) => void;
+  handleSort: () => void;
   handleClearFilter: () => void;
 }
 
@@ -48,6 +49,7 @@ const Filter = ({
   handleChangeCity,
   handleChangeDistrict,
   handleChangeStar,
+  handleSort,
   handleClearFilter,
 }: FilterProps) => {
   const [cityDistricts, setCityDistricts] = useState<any[]>([]);
@@ -90,6 +92,7 @@ const Filter = ({
         <Button
           variant="outlined"
           sx={{ mt: '30px', height: '50px', width: '150px' }}
+          onClick={handleSort}
         >
           ソート: 混雑状況
         </Button>
