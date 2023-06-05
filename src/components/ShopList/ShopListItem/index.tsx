@@ -76,9 +76,9 @@ const ShopListItem = ({ shop }: ShopListItemProps) => {
           {[...new Array(fullStars)].map((arr, index) => (
             <StarIcon sx={{ color: '#ffc200' }} key={index} />
           ))}
-          {halfStar && <StarHalfIcon />}
+          {halfStar && <StarHalfIcon sx={{ color: '#ffc200' }} />}
           {[...new Array(emptyStars)].map((arr, index) => (
-            <StarOutlineIcon key={index} />
+            <StarOutlineIcon sx={{ color: '#ffc200' }} key={index} />
           ))}
         </Container>
       </CardContent>
