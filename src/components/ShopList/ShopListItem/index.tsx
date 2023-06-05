@@ -26,7 +26,7 @@ const ShopListItem = ({ shop }: ShopListItemProps) => {
   const decimalPart = avgStar - fullStars;
   let halfStar = false;
 
-  if (decimalPart > 0 && decimalPart < 1) {
+  if (decimalPart > 0 && decimalPart < 0.75) {
     halfStar = true;
   } else if (decimalPart >= 0.75) {
     halfStar = true;
