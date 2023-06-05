@@ -12,6 +12,7 @@ import StarIcon from '@mui/icons-material/Star';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
 import { ShopInterface } from '../../../models/shop';
 import { calculateAvgStar } from '../../../utils/calculateAvgStar';
+import { trafficDatas } from '../../../data/Shop/Traffic';
 
 interface ShopListItemProps {
   shop: ShopInterface;
@@ -19,6 +20,11 @@ interface ShopListItemProps {
 
 const ShopListItem = ({ shop }: ShopListItemProps) => {
   const avgStar = calculateAvgStar(shop.ratings);
+
+  const shopTraffic = trafficDatas.find(
+    (traffic) => traffic.traffic === shop.traffic,
+  );
+
   return (
     <Card
       sx={{ width: '21%', border: '1px solid ', float: 'left', margin: '22px' }}
@@ -73,14 +79,14 @@ const ShopListItem = ({ shop }: ShopListItemProps) => {
         >
           <Typography
             sx={{
-              bgcolor: 'green',
+              bgcolor: `${shopTraffic?.color}`,
               width: '20px',
               height: '20px',
               borderRadius: '100%',
               marginRight: '12px',
             }}
           ></Typography>
-          混雑状況：中
+          混雑状況：{shopTraffic?.label}
         </Button>
       </CardActions>
     </Card>

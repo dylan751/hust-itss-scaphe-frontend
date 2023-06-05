@@ -16,7 +16,7 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import StarIcon from '@mui/icons-material/Star';
 import { ITEM_HEIGHT, ITEM_PADDING_TOP } from '../../constants/Menu';
 import cityDistrictApi from '../../services/cityDistrictApi';
-import { starDatas } from '../../data/Star';
+import { starDatas } from '../../data/Shop/Star';
 
 const MenuProps = {
   PaperProps: {
