@@ -17,6 +17,7 @@ import StarIcon from '@mui/icons-material/Star';
 import { ITEM_HEIGHT, ITEM_PADDING_TOP } from '../../constants/Menu';
 import cityDistrictApi from '../../services/cityDistrictApi';
 import { starDatas } from '../../data/Shop/Star';
+import { categoryDatas } from '../../data/Shop/Category';
 
 const MenuProps = {
   PaperProps: {
@@ -32,12 +33,13 @@ interface FilterProps {
   cityName: string;
   districtName: string;
   star: string;
+  category: string;
   handleChangeSearchTerm: (event: ChangeEvent<HTMLInputElement>) => void;
   handleChangeCity: (event: SelectChangeEvent) => void;
   handleChangeDistrict: (event: SelectChangeEvent) => void;
   handleChangeStar: (event: SelectChangeEvent) => void;
+  handleChangeCategory: (event: SelectChangeEvent) => void;
   handleSort: () => void;
-  handleClearFilter: () => void;
 }
 
 const Filter = ({
@@ -45,12 +47,13 @@ const Filter = ({
   cityName,
   districtName,
   star,
+  category,
   handleChangeSearchTerm,
   handleChangeCity,
   handleChangeDistrict,
   handleChangeStar,
+  handleChangeCategory,
   handleSort,
-  handleClearFilter,
 }: FilterProps) => {
   const [cityDistricts, setCityDistricts] = useState<any[]>([]);
 
@@ -114,6 +117,9 @@ const Filter = ({
             onChange={handleChangeCity}
             MenuProps={MenuProps}
           >
+            <MenuItem value="" sx={{ height: '36px', opacity: '0.3' }}>
+              リセット
+            </MenuItem>
             {cityDistricts.map((cityDistrict: any) => (
               <MenuItem
                 key={cityDistrict.codename}
@@ -133,7 +139,12 @@ const Filter = ({
             label="地区"
             onChange={handleChangeDistrict}
             MenuProps={MenuProps}
+            disabled={!cityName}
+            sx={{ '.Mui-disabled': { cursor: 'not-allowed' } }}
           >
+            <MenuItem value="" sx={{ height: '36px', opacity: '0.3' }}>
+              リセット
+            </MenuItem>
             {cityDistricts.map(
               (cityDistrict: any) =>
                 cityDistrict.codename === cityName &&
@@ -155,20 +166,36 @@ const Filter = ({
             onChange={handleChangeStar}
             MenuProps={MenuProps}
           >
+            <MenuItem value="" sx={{ height: '36px', opacity: '0.3' }}>
+              リセット
+            </MenuItem>
             {starDatas.map((star: string) => (
               <MenuItem key={star} value={star}>
-                {star} <StarIcon />
+                {star} <StarIcon sx={{ color: '#ffc200' }} />
               </MenuItem>
             ))}
           </Select>
         </FormControl>
-        <Button
-          variant="outlined"
-          sx={{ height: '55px', width: '170px' }}
-          onClick={handleClearFilter}
-        >
-          フィルターリセット
-        </Button>
+        <FormControl sx={{ m: '20px 20px 20px 0', width: 200 }}>
+          <InputLabel id="category-input-select-label">カテゴリ</InputLabel>
+          <Select
+            labelId="category-input-select-label"
+            id="category-input"
+            value={category}
+            label="カテゴリ"
+            onChange={handleChangeCategory}
+            MenuProps={MenuProps}
+          >
+            <MenuItem value="" sx={{ height: '36px', opacity: '0.3' }}>
+              リセット
+            </MenuItem>
+            {categoryDatas.map((categoryData: string) => (
+              <MenuItem key={categoryData} value={categoryData}>
+                {categoryData}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         <CalendarMonthSharpIcon sx={{ fontSize: '40px', marginLeft: 'auto' }} />
       </Grid>
     </Container>

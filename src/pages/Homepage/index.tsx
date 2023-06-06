@@ -15,6 +15,7 @@ const HomePage = () => {
   const [cityName, setCityName] = useState('');
   const [districtName, setDistrictName] = useState('');
   const [star, setStar] = useState('1'); // By default, will fetch all shops with avg stars >= 1 (which means all Shops)
+  const [category, setCategory] = useState(''); // By default, will fetch all shops with avg stars >= 1 (which means all Shops)
   const [sort, setSort] = useState('');
 
   const handleChangeSearchTerm = (event: ChangeEvent<HTMLInputElement>) => {
@@ -33,16 +34,12 @@ const HomePage = () => {
     setStar(event.target.value as string);
   };
 
-  const handleSort = () => {
-    setSort('asc');
+  const handleChangeCategory = (event: SelectChangeEvent) => {
+    setCategory(event.target.value as string);
   };
 
-  const handleClearFilter = () => {
-    setSearchTerm('');
-    setCityName('');
-    setDistrictName('');
-    setStar('1');
-    setSort('');
+  const handleSort = () => {
+    setSort('asc');
   };
 
   const getAllShops = async (
@@ -88,12 +85,13 @@ const HomePage = () => {
         cityName={cityName}
         districtName={districtName}
         star={star}
+        category={category}
         handleChangeSearchTerm={handleChangeSearchTerm}
         handleChangeCity={handleChangeCity}
         handleChangeDistrict={handleChangeDistrict}
         handleChangeStar={handleChangeStar}
+        handleChangeCategory={handleChangeCategory}
         handleSort={handleSort}
-        handleClearFilter={handleClearFilter}
       />
       {isLoading ? <Loading /> : <ShopList shops={shops} />}
     </>
