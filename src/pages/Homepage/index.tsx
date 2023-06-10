@@ -15,7 +15,7 @@ const HomePage = () => {
   const [cityName, setCityName] = useState('');
   const [districtName, setDistrictName] = useState('');
   const [star, setStar] = useState('1'); // By default, will fetch all shops with avg stars >= 1 (which means all Shops)
-  const [category, setCategory] = useState(''); // By default, will fetch all shops with avg stars >= 1 (which means all Shops)
+  const [categories, setCategories] = useState<string[]>([]);
   const [sort, setSort] = useState('');
 
   const handleChangeSearchTerm = (event: ChangeEvent<HTMLInputElement>) => {
@@ -34,8 +34,16 @@ const HomePage = () => {
     setStar(event.target.value as string);
   };
 
-  const handleChangeCategory = (event: SelectChangeEvent) => {
-    setCategory(event.target.value as string);
+  const handleChangeCategories = (
+    event: SelectChangeEvent<typeof categories>,
+  ) => {
+    const {
+      target: { value },
+    } = event;
+    setCategories(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
   };
 
   const handleSort = () => {
@@ -47,6 +55,7 @@ const HomePage = () => {
     cityName: string,
     districtName: string,
     star: string,
+    categories: string[],
     sort: string,
   ) => {
     setIsLoading(true);
@@ -55,6 +64,7 @@ const HomePage = () => {
       cityName,
       districtName,
       star,
+      categories,
       sort,
     );
     const allShops: ShopInterface[] = res.data.data.shops;
@@ -67,16 +77,24 @@ const HomePage = () => {
     cityName: string,
     districtName: string,
     star: string,
+    categories: string[],
     sort: string,
   ) => {
-    getAllShops(searchTerm, cityName, districtName, star, sort);
+    getAllShops(searchTerm, cityName, districtName, star, categories, sort);
   };
 
   const debounceLoadData = useCallback(_.debounce(fetchData, 500), []);
 
   useEffect(() => {
-    debounceLoadData(searchTerm, cityName, districtName, star, sort);
-  }, [searchTerm, cityName, districtName, star, sort]);
+    debounceLoadData(
+      searchTerm,
+      cityName,
+      districtName,
+      star,
+      categories,
+      sort,
+    );
+  }, [searchTerm, cityName, districtName, star, categories, sort]);
 
   return (
     <>
@@ -85,12 +103,12 @@ const HomePage = () => {
         cityName={cityName}
         districtName={districtName}
         star={star}
-        category={category}
+        categories={categories}
         handleChangeSearchTerm={handleChangeSearchTerm}
         handleChangeCity={handleChangeCity}
         handleChangeDistrict={handleChangeDistrict}
         handleChangeStar={handleChangeStar}
-        handleChangeCategory={handleChangeCategory}
+        handleChangeCategories={handleChangeCategories}
         handleSort={handleSort}
       />
       {isLoading ? <Loading /> : <ShopList shops={shops} />}

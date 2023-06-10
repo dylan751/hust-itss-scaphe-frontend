@@ -1,10 +1,12 @@
 import {
   Button,
+  Checkbox,
   Container,
   FormControl,
   Grid,
   InputAdornment,
   InputLabel,
+  ListItemText,
   MenuItem,
   Select,
   SelectChangeEvent,
@@ -33,12 +35,12 @@ interface FilterProps {
   cityName: string;
   districtName: string;
   star: string;
-  category: string;
+  categories: string[];
   handleChangeSearchTerm: (event: ChangeEvent<HTMLInputElement>) => void;
   handleChangeCity: (event: SelectChangeEvent) => void;
   handleChangeDistrict: (event: SelectChangeEvent) => void;
   handleChangeStar: (event: SelectChangeEvent) => void;
-  handleChangeCategory: (event: SelectChangeEvent) => void;
+  handleChangeCategories: (event: SelectChangeEvent<string[]>) => void;
   handleSort: () => void;
 }
 
@@ -47,12 +49,12 @@ const Filter = ({
   cityName,
   districtName,
   star,
-  category,
+  categories,
   handleChangeSearchTerm,
   handleChangeCity,
   handleChangeDistrict,
   handleChangeStar,
-  handleChangeCategory,
+  handleChangeCategories,
   handleSort,
 }: FilterProps) => {
   const [cityDistricts, setCityDistricts] = useState<any[]>([]);
@@ -177,21 +179,21 @@ const Filter = ({
           </Select>
         </FormControl>
         <FormControl sx={{ m: '20px 20px 20px 0', width: 200 }}>
-          <InputLabel id="category-input-select-label">カテゴリ</InputLabel>
+          <InputLabel id="categories-input-select-label">カテゴリ</InputLabel>
           <Select
-            labelId="category-input-select-label"
-            id="category-input"
-            value={category}
+            labelId="categories-input-select-label"
+            id="categories-input"
+            multiple
+            value={categories}
             label="カテゴリ"
-            onChange={handleChangeCategory}
+            onChange={handleChangeCategories}
+            renderValue={(selected: string[]) => selected.join(', ')}
             MenuProps={MenuProps}
           >
-            <MenuItem value="" sx={{ height: '36px', opacity: '0.3' }}>
-              リセット
-            </MenuItem>
             {categoryDatas.map((categoryData: string) => (
               <MenuItem key={categoryData} value={categoryData}>
-                {categoryData}
+                <Checkbox checked={categories.indexOf(categoryData) > -1} />
+                <ListItemText primary={categoryData} />
               </MenuItem>
             ))}
           </Select>
