@@ -1,10 +1,12 @@
 import {
   Button,
+  Checkbox,
   Container,
   FormControl,
   Grid,
   InputAdornment,
   InputLabel,
+  ListItemText,
   MenuItem,
   Select,
   SelectChangeEvent,
@@ -17,6 +19,7 @@ import StarIcon from '@mui/icons-material/Star';
 import { ITEM_HEIGHT, ITEM_PADDING_TOP } from '../../constants/Menu';
 import cityDistrictApi from '../../services/cityDistrictApi';
 import { starDatas } from '../../data/Shop/Star';
+import { categoryDatas } from '../../data/Shop/Category';
 
 const MenuProps = {
   PaperProps: {
@@ -32,12 +35,13 @@ interface FilterProps {
   cityName: string;
   districtName: string;
   star: string;
+  categories: string[];
   handleChangeSearchTerm: (event: ChangeEvent<HTMLInputElement>) => void;
   handleChangeCity: (event: SelectChangeEvent) => void;
   handleChangeDistrict: (event: SelectChangeEvent) => void;
   handleChangeStar: (event: SelectChangeEvent) => void;
+  handleChangeCategories: (event: SelectChangeEvent<string[]>) => void;
   handleSort: () => void;
-  handleClearFilter: () => void;
 }
 
 const Filter = ({
@@ -45,12 +49,13 @@ const Filter = ({
   cityName,
   districtName,
   star,
+  categories,
   handleChangeSearchTerm,
   handleChangeCity,
   handleChangeDistrict,
   handleChangeStar,
+  handleChangeCategories,
   handleSort,
-  handleClearFilter,
 }: FilterProps) => {
   const [cityDistricts, setCityDistricts] = useState<any[]>([]);
 
@@ -114,6 +119,9 @@ const Filter = ({
             onChange={handleChangeCity}
             MenuProps={MenuProps}
           >
+            <MenuItem value="" sx={{ height: '36px', opacity: '0.3' }}>
+              リセット
+            </MenuItem>
             {cityDistricts.map((cityDistrict: any) => (
               <MenuItem
                 key={cityDistrict.codename}
@@ -133,7 +141,12 @@ const Filter = ({
             label="地区"
             onChange={handleChangeDistrict}
             MenuProps={MenuProps}
+            disabled={!cityName}
+            sx={{ '.Mui-disabled': { cursor: 'not-allowed' } }}
           >
+            <MenuItem value="" sx={{ height: '36px', opacity: '0.3' }}>
+              リセット
+            </MenuItem>
             {cityDistricts.map(
               (cityDistrict: any) =>
                 cityDistrict.codename === cityName &&
@@ -155,20 +168,36 @@ const Filter = ({
             onChange={handleChangeStar}
             MenuProps={MenuProps}
           >
+            <MenuItem value="" sx={{ height: '36px', opacity: '0.3' }}>
+              リセット
+            </MenuItem>
             {starDatas.map((star: string) => (
               <MenuItem key={star} value={star}>
-                {star} <StarIcon />
+                {star} <StarIcon sx={{ color: '#ffc200' }} />
               </MenuItem>
             ))}
           </Select>
         </FormControl>
-        <Button
-          variant="outlined"
-          sx={{ height: '55px', width: '170px' }}
-          onClick={handleClearFilter}
-        >
-          フィルターリセット
-        </Button>
+        <FormControl sx={{ m: '20px 20px 20px 0', width: 200 }}>
+          <InputLabel id="categories-input-select-label">カテゴリ</InputLabel>
+          <Select
+            labelId="categories-input-select-label"
+            id="categories-input"
+            multiple
+            value={categories}
+            label="カテゴリ"
+            onChange={handleChangeCategories}
+            renderValue={(selected: string[]) => selected.join(', ')}
+            MenuProps={MenuProps}
+          >
+            {categoryDatas.map((categoryData: string) => (
+              <MenuItem key={categoryData} value={categoryData}>
+                <Checkbox checked={categories.indexOf(categoryData) > -1} />
+                <ListItemText primary={categoryData} />
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         <CalendarMonthSharpIcon sx={{ fontSize: '40px', marginLeft: 'auto' }} />
       </Grid>
     </Container>

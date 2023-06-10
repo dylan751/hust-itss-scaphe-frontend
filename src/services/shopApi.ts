@@ -7,10 +7,13 @@ class shopApi {
     cityName: string,
     districtName: string,
     star: string,
+    categories: string[],
     sort: string,
   ) => {
     return await authAxios(
-      `${process.env.REACT_APP_API_DOMAIN}/api/v1/shops?searchTerm=${searchTerm}&city=${cityName}&district=${districtName}&star=${star}&sort=${sort}`,
+      `${
+        process.env.REACT_APP_API_DOMAIN
+      }/api/v1/shops?searchTerm=${searchTerm}&city=${cityName}&district=${districtName}&star=${star}&sort=${sort}&categories=${categories}`,
       {
         method: 'GET',
         headers: {
