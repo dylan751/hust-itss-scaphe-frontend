@@ -1,4 +1,6 @@
 import { AppBar, Avatar, Link, Toolbar, Typography } from '@mui/material';
+import { Link as LinkRoute } from 'react-router-dom';
+
 import React from 'react';
 
 const Navbar = () => {
@@ -6,11 +8,13 @@ const Navbar = () => {
     <>
       <AppBar sx={{ background: '#ffff' }} position="static">
         <Toolbar>
-          <Avatar
-            alt="Cafe Shop"
-            src="./assets/images/logo.png"
-            sx={{ width: 50, height: 50, marginLeft: '50px' }}
-          />
+          <LinkRoute to={'/'}>
+            <Avatar
+              alt="Cafe Shop"
+              src="./assets/images/logo.png"
+              sx={{ width: 50, height: 50, marginLeft: '50px' }}
+            />
+          </LinkRoute>
           <Typography
             variant="h6"
             gutterBottom
