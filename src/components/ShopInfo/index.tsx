@@ -3,75 +3,44 @@ import React from 'react';
 import { ShopInterface } from '../../models/shop';
 import CallIcon from '@mui/icons-material/Call';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-// import { trafficDatas } from '../../data/Shop/Traffic';
+import { trafficDatas } from '../../data/Shop/Traffic';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-interface ShopDetailProps {
-  shopDetail: ShopInterface;
+
+interface ShopInfoProps {
+  shopInfo: ShopInterface;
 }
-const ShopDetail = ({ shopDetail }: ShopDetailProps) => {
-  //   const shopTraffic = trafficDatas.find(
-  //     (traffic) => traffic.traffic === shopDetail.traffic,
-  //   );
+const ShopInfo = ({ shopInfo }: ShopInfoProps) => {
+  const shopTraffic = trafficDatas.find(
+    (traffic) => traffic.traffic === shopInfo.traffic,
+  );
+
   return (
     <Container sx={{ margin: '28px 28px' }}>
       <Typography variant="h4" sx={{ fontWeight: 700 }}>
-        Shop
+        {shopInfo.name}
       </Typography>
       <Grid>
-        <Button
-          sx={{
-            ':hover': {
-              backgroundColor: '#c6db39',
-            },
-            margin: '20px 10px',
-            fontSize: '20px',
-            padding: '2px 35px',
-            backgroundColor: '#aabe21',
-            color: 'black',
-            border: '1px solid black',
-            fontWeight: 'bold',
-            borderRadius: '8px',
-          }}
-          variant="contained"
-        >
-          英語OK
-        </Button>
-        <Button
-          sx={{
-            ':hover': {
-              backgroundColor: '#c6db39',
-            },
-            margin: '20px 10px',
-            fontSize: '20px',
-            padding: '2px 35px',
-            backgroundColor: '#aabe21',
-            color: 'black',
-            border: '1px solid black',
-            fontWeight: 'bold',
-            borderRadius: '8px',
-          }}
-          variant="contained"
-        >
-          個室
-        </Button>
-        <Button
-          sx={{
-            ':hover': {
-              backgroundColor: '#c6db39',
-            },
-            margin: '20px 10px',
-            fontSize: '20px',
-            padding: '2px 35px',
-            backgroundColor: '#aabe21',
-            color: 'black',
-            border: '1px solid black',
-            fontWeight: 'bold',
-            borderRadius: '8px',
-          }}
-          variant="contained"
-        >
-          エアコン
-        </Button>
+        {shopInfo.categories.map((category) => (
+          <Button
+            sx={{
+              ':hover': {
+                backgroundColor: '#c6db39',
+              },
+              margin: '20px 10px',
+              fontSize: '20px',
+              padding: '2px 35px',
+              backgroundColor: '#aabe21',
+              color: 'black',
+              border: '1px solid black',
+              fontWeight: 'bold',
+              borderRadius: '8px',
+            }}
+            variant="contained"
+            key={category.category}
+          >
+            {category.category}
+          </Button>
+        ))}
       </Grid>
       <Container sx={{ marginLeft: '-24px', display: 'flex' }}>
         <Grid
@@ -81,7 +50,7 @@ const ShopDetail = ({ shopDetail }: ShopDetailProps) => {
         >
           <CardMedia
             component="img"
-            image="./assets/images/shop.png"
+            image="../assets/images/shop.png"
             alt="CafeShop"
             sx={{
               width: '300px',
@@ -97,11 +66,12 @@ const ShopDetail = ({ shopDetail }: ShopDetailProps) => {
         >
           <Typography variant="h6">
             <CallIcon sx={{ color: 'red', margin: '10px 12px' }} />
-            0828768112
+            {shopInfo.phone}
           </Typography>
           <Typography variant="h6">
             <LocationOnIcon sx={{ color: 'red', margin: '10px 12px' }} />
-            Tương Mai, Hoàng Mai, Hà Nội
+            {/* Tương Mai, Hoàng Mai, Hà Nội */}
+            {`${shopInfo.district}, ${shopInfo.city}`}
           </Typography>
           <Typography variant="h6">
             <CalendarMonthIcon sx={{ color: 'red', margin: '10px 12px' }} />
@@ -122,16 +92,14 @@ const ShopDetail = ({ shopDetail }: ShopDetailProps) => {
             >
               <Typography
                 sx={{
-                  //   bgcolor: `${shopTraffic?.color}`,
-                  bgcolor: '#4caf50',
+                  bgcolor: `${shopTraffic?.color}`,
                   width: '20px',
                   height: '20px',
                   borderRadius: '100%',
                   marginRight: '12px',
                 }}
               ></Typography>
-              混雑状況：中
-              {/* {shopTraffic?.label} */}
+              混雑状況：{shopTraffic?.label}
             </Button>
           </Typography>
         </Grid>
@@ -140,4 +108,4 @@ const ShopDetail = ({ shopDetail }: ShopDetailProps) => {
   );
 };
 
-export default ShopDetail;
+export default ShopInfo;

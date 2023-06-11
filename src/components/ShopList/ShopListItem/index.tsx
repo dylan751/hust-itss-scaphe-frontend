@@ -41,7 +41,7 @@ const ShopListItem = ({ shop }: ShopListItemProps) => {
   );
 
   return (
-    <Link to={'/detail'}>
+    <Link to={`/shops/${shop._id}`}>
       <Card
         sx={{
           ':hover': {

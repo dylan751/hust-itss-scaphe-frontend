@@ -15,18 +15,20 @@ const Navbar = () => {
               sx={{ width: 50, height: 50, marginLeft: '50px' }}
             />
           </LinkRoute>
-          <Typography
-            variant="h6"
-            gutterBottom
-            sx={{
-              color: 'orange',
-              marginLeft: '20px',
-              fontWeight: 700,
-              fontSize: '25px',
-            }}
-          >
-            SCAPHE
-          </Typography>
+          <LinkRoute to={'/'}>
+            <Typography
+              variant="h6"
+              gutterBottom
+              sx={{
+                color: 'orange',
+                marginLeft: '20px',
+                fontWeight: 700,
+                fontSize: '25px',
+              }}
+            >
+              SCAPHE
+            </Typography>
+          </LinkRoute>
           <Link sx={{ marginLeft: 'auto', fontWeight: 700, cursor: 'pointer' }}>
             ログイン
           </Link>
