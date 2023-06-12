@@ -207,6 +207,9 @@ const Filter = ({
           label="営業時間"
           value={selectedDateTime}
           onChange={(newDateTime) => handleChangeSelectedDateTime(newDateTime)}
+          slotProps={{
+            actionBar: { actions: ['clear'] }, // Add clear dateTime value button to the calendar
+          }}
         />
       </Grid>
     </Container>
