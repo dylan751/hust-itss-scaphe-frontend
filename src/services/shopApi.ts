@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import { ShopInterface } from '../models/shop';
 import authAxios from './authAxios';
 
@@ -9,9 +10,15 @@ class shopApi {
     star: string,
     categories: string[],
     sort: string,
+    selectedDateTime: Date | null,
   ) => {
+    let dateTime = '';
+    if (selectedDateTime !== null) {
+      dateTime = format(selectedDateTime as Date, 'e dd/LL/yyyy HH:mm:ss b');
+      console.log(dateTime);
+    }
     return await authAxios(
-      `${process.env.REACT_APP_API_DOMAIN}/api/v1/shops?searchTerm=${searchTerm}&city=${cityName}&district=${districtName}&star=${star}&sort=${sort}&categories=${categories}`,
+      `${process.env.REACT_APP_API_DOMAIN}/api/v1/shops?searchTerm=${searchTerm}&city=${cityName}&district=${districtName}&star=${star}&sort=${sort}&categories=${categories}&dateTime=${dateTime}`,
       {
         method: 'GET',
         headers: {
