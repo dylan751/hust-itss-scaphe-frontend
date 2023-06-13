@@ -12,7 +12,6 @@ import {
   SelectChangeEvent,
   TextField,
 } from '@mui/material';
-import CalendarMonthSharpIcon from '@mui/icons-material/CalendarMonthSharp';
 import SearchIcon from '@mui/icons-material/Search';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import StarIcon from '@mui/icons-material/Star';
@@ -20,6 +19,7 @@ import { ITEM_HEIGHT, ITEM_PADDING_TOP } from '../../constants/Menu';
 import cityDistrictApi from '../../services/cityDistrictApi';
 import { starDatas } from '../../data/Shop/Star';
 import { categoryDatas } from '../../data/Shop/Category';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
 const MenuProps = {
   PaperProps: {
@@ -36,12 +36,14 @@ interface FilterProps {
   districtName: string;
   star: string;
   categories: string[];
+  selectedDateTime: Date | null;
   handleChangeSearchTerm: (event: ChangeEvent<HTMLInputElement>) => void;
   handleChangeCity: (event: SelectChangeEvent) => void;
   handleChangeDistrict: (event: SelectChangeEvent) => void;
   handleChangeStar: (event: SelectChangeEvent) => void;
   handleChangeCategories: (event: SelectChangeEvent<string[]>) => void;
   handleSort: () => void;
+  handleChangeSelectedDateTime: (value: Date | null) => void;
 }
 
 const Filter = ({
@@ -50,12 +52,14 @@ const Filter = ({
   districtName,
   star,
   categories,
+  selectedDateTime,
   handleChangeSearchTerm,
   handleChangeCity,
   handleChangeDistrict,
   handleChangeStar,
   handleChangeCategories,
   handleSort,
+  handleChangeSelectedDateTime,
 }: FilterProps) => {
   const [cityDistricts, setCityDistricts] = useState<any[]>([]);
 
@@ -198,7 +202,15 @@ const Filter = ({
             ))}
           </Select>
         </FormControl>
-        <CalendarMonthSharpIcon sx={{ fontSize: '40px', marginLeft: 'auto' }} />
+
+        <DateTimePicker
+          label="営業時間"
+          value={selectedDateTime}
+          onChange={(newDateTime) => handleChangeSelectedDateTime(newDateTime)}
+          slotProps={{
+            actionBar: { actions: ['clear'] }, // Add clear dateTime value button to the calendar
+          }}
+        />
       </Grid>
     </Container>
   );
