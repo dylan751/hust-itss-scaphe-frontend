@@ -5,6 +5,7 @@ import CallIcon from '@mui/icons-material/Call';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { trafficDatas } from '../../data/Shop/Traffic';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import ShopFeedback from '../ShopFeedback';
 
 interface ShopInfoProps {
   shopInfo: ShopInterface;
@@ -104,6 +105,7 @@ const ShopInfo = ({ shopInfo }: ShopInfoProps) => {
           </Typography>
         </Grid>
       </Container>
+      <ShopFeedback />
     </Container>
   );
 };
