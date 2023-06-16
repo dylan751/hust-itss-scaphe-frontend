@@ -4,6 +4,7 @@ import shopApi from '../../services/shopApi';
 import { ShopInterface } from '../../models/shop';
 import ShopInfo from '../../components/ShopInfo';
 import Loading from '../../components/Loading';
+import ShopFeedback from '../../components/ShopFeedback';
 
 const ShopDetail = () => {
   const { shopId } = useParams();
@@ -32,7 +33,18 @@ const ShopDetail = () => {
     getShopInfo();
   }, []);
 
-  return <>{isLoading ? <Loading /> : <ShopInfo shopInfo={shopInfo} />}</>;
+  return (
+    <>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <ShopInfo shopInfo={shopInfo} />
+          <ShopFeedback shopInfo={shopInfo} />
+        </>
+      )}
+    </>
+  );
 };
 
 export default ShopDetail;
