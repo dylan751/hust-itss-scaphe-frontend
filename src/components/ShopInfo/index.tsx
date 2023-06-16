@@ -9,6 +9,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 interface ShopInfoProps {
   shopInfo: ShopInterface;
 }
+
 const ShopInfo = ({ shopInfo }: ShopInfoProps) => {
   const shopTraffic = trafficDatas.find(
     (traffic) => traffic.traffic === shopInfo.traffic,
@@ -50,7 +51,7 @@ const ShopInfo = ({ shopInfo }: ShopInfoProps) => {
         >
           <CardMedia
             component="img"
-            image="../assets/images/shop.png"
+            image={shopInfo.avatar}
             alt="CafeShop"
             sx={{
               width: '300px',

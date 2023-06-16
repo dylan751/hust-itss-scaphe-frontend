@@ -15,26 +15,15 @@ import { calculateAvgStar } from '../../../utils/calculateAvgStar';
 import { trafficDatas } from '../../../data/Shop/Traffic';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import { Link } from 'react-router-dom';
+import { calculateShowStar } from '../../../utils/calculateShowStar';
 
 interface ShopListItemProps {
   shop: ShopInterface;
 }
 
 const ShopListItem = ({ shop }: ShopListItemProps) => {
-  const totalStars = 5;
-
   const avgStar = calculateAvgStar(shop.ratings);
-  let fullStars = Math.floor(avgStar);
-  const decimalPart = avgStar - fullStars;
-  let halfStar = false;
-
-  if (decimalPart > 0 && decimalPart < 0.75) {
-    halfStar = true;
-  } else if (decimalPart >= 0.75) {
-    halfStar = true;
-    fullStars++; // Round up to the next star
-  }
-  const emptyStars = totalStars - (fullStars + (halfStar ? 1 : 0));
+  const { fullStars, halfStar, emptyStars } = calculateShowStar(avgStar);
 
   const shopTraffic = trafficDatas.find(
     (traffic) => traffic.traffic === shop.traffic,
