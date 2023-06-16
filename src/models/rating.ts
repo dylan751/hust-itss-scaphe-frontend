@@ -1,3 +1,5 @@
+import { UserInterface } from './user';
+
 export type StarType = 1 | 2 | 3 | 4 | 5; // 1, 2, 3, 4, 5 stars
 
 export interface RatingInterface {
@@ -6,4 +8,5 @@ export interface RatingInterface {
   shopId: string;
   star: StarType;
   content: string;
+  user: UserInterface;
 }

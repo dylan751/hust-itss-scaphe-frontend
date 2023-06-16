@@ -4,12 +4,14 @@ import TextareaValidator from './TextareaValidator';
 import Rating from '../Rating';
 import Comment from './Comment';
 import { ShopInterface } from '../../models/shop';
+import { RatingInterface } from '../../models/rating';
 
 interface ShopInfoProps {
   shopInfo: ShopInterface;
+  shopRatings: RatingInterface[];
 }
 
-const ShopFeedback = ({ shopInfo }: ShopInfoProps) => {
+const ShopFeedback = ({ shopInfo, shopRatings }: ShopInfoProps) => {
   return (
     <>
       <Grid
@@ -100,7 +102,7 @@ const ShopFeedback = ({ shopInfo }: ShopInfoProps) => {
             height: '100%',
           }}
         >
-          <Rating shopInfo={shopInfo} />
+          <Rating shopInfo={shopInfo} shopRatings={shopRatings} />
         </Grid>
       </Grid>
     </>
