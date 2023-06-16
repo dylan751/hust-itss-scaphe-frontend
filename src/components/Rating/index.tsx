@@ -8,12 +8,14 @@ import RatingProgress from './RatingProgress';
 import { ShopInterface } from '../../models/shop';
 import { calculateAvgStar } from '../../utils/calculateAvgStar';
 import { calculateShowStar } from '../../utils/calculateShowStar';
+import { RatingInterface } from '../../models/rating';
 
 interface ShopInfoProps {
   shopInfo: ShopInterface;
+  shopRatings: RatingInterface[];
 }
 
-const Rating = ({ shopInfo }: ShopInfoProps) => {
+const Rating = ({ shopInfo, shopRatings }: ShopInfoProps) => {
   const avgStar = calculateAvgStar(shopInfo.ratings);
   const { fullStars, halfStar, emptyStars } = calculateShowStar(avgStar);
 
@@ -28,7 +30,7 @@ const Rating = ({ shopInfo }: ShopInfoProps) => {
           fontSize: '24px',
         }}
       >
-        50 レビュー
+        {shopRatings.length} レビュー
       </Typography>
       <RatingProgress />
       <Container
