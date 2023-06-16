@@ -3,8 +3,13 @@ import React from 'react';
 import TextareaValidator from './TextareaValidator';
 import Rating from '../Rating';
 import Comment from './Comment';
+import { ShopInterface } from '../../models/shop';
 
-const ShopFeedback = () => {
+interface ShopInfoProps {
+  shopInfo: ShopInterface;
+}
+
+const ShopFeedback = ({ shopInfo }: ShopInfoProps) => {
   return (
     <>
       <Grid
@@ -80,7 +85,7 @@ const ShopFeedback = () => {
               ベトナム
             </Button>
           </Grid>
-          <TextareaValidator />
+          <TextareaValidator shopInfo={shopInfo} />
           <Comment />
           <Comment />
           <Comment />
@@ -95,7 +100,7 @@ const ShopFeedback = () => {
             height: '100%',
           }}
         >
-          <Rating />
+          <Rating shopInfo={shopInfo} />
         </Grid>
       </Grid>
     </>

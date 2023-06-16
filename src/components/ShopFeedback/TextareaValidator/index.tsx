@@ -6,10 +6,20 @@ import Textarea from '@mui/joy/Textarea';
 import { Checkbox, Grid, Rating, Typography } from '@mui/material';
 import { categoryDatas } from '../../../data/Shop/Category';
 import { useState } from 'react';
+import { ShopInterface } from '../../../models/shop';
+import { trafficDatas } from '../../../data/Shop/Traffic';
 
-const TextareaValidator = () => {
-  const [value, setValue] = React.useState<number | null>(2);
+interface ShopInfoProps {
+  shopInfo: ShopInterface;
+}
+
+const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
+  const [value, setValue] = useState<number | null>(3);
   const [color, setColor] = useState('#f4f4f8');
+
+  const shopTraffic = trafficDatas.find(
+    (traffic) => traffic.traffic === shopInfo.traffic,
+  );
 
   const handleClick = () => {
     setColor(color === '#f4f4f8' ? '#b0b0b0' : '#f4f4f8');
@@ -59,14 +69,14 @@ const TextareaValidator = () => {
             >
               <Typography
                 sx={{
-                  bgcolor: '#4caf50',
+                  bgcolor: `${shopTraffic?.color}`,
                   width: '20px',
                   height: '20px',
                   borderRadius: '100%',
                   marginRight: '12px',
                 }}
               ></Typography>
-              混雑状況：中
+              混雑状況：{shopTraffic?.label}
               <Checkbox
                 sx={{
                   width: '30px',

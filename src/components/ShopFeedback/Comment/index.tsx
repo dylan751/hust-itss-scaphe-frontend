@@ -28,7 +28,7 @@ const Comment = () => {
             >
               <Grid sx={{ margin: 'auto 0px' }}>
                 <Avatar
-                  alt="Remy Sharp"
+                  alt="avatar"
                   sx={{
                     marginRight: '15px',
                   }}

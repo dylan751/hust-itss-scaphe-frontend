@@ -5,8 +5,18 @@ import StarIcon from '@mui/icons-material/Star';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import RatingProgress from './RatingProgress';
+import { ShopInterface } from '../../models/shop';
+import { calculateAvgStar } from '../../utils/calculateAvgStar';
+import { calculateShowStar } from '../../utils/calculateShowStar';
 
-function Rating() {
+interface ShopInfoProps {
+  shopInfo: ShopInterface;
+}
+
+const Rating = ({ shopInfo }: ShopInfoProps) => {
+  const avgStar = calculateAvgStar(shopInfo.ratings);
+  const { fullStars, halfStar, emptyStars } = calculateShowStar(avgStar);
+
   return (
     <Grid>
       <Typography
@@ -32,16 +42,23 @@ function Rating() {
         <Typography
           sx={{ fontSize: '32px', fontWeight: 600, marginRight: '10px' }}
         >
-          4.5
+          {avgStar}
         </Typography>
-        <StarIcon sx={{ color: '#ff9800', fontSize: '36px' }} />
-        <StarIcon sx={{ color: '#ff9800', fontSize: '36px' }} />
-        <StarIcon sx={{ color: '#ff9800', fontSize: '36px' }} />
-        <StarHalfIcon sx={{ color: '#ff9800', fontSize: '36px' }} />
-        <StarOutlineIcon sx={{ color: '#ff9800', fontSize: '36px' }} />
+        {[...new Array(fullStars)].map((arr, index) => (
+          <StarIcon sx={{ color: '#ff9800', fontSize: '36px' }} key={index} />
+        ))}
+        {halfStar && (
+          <StarHalfIcon sx={{ color: '#ff9800', fontSize: '36px' }} />
+        )}
+        {[...new Array(emptyStars)].map((arr, index) => (
+          <StarOutlineIcon
+            sx={{ color: '#ff9800', fontSize: '36px' }}
+            key={index}
+          />
+        ))}
       </Container>
     </Grid>
   );
-}
+};
 
 export default Rating;
