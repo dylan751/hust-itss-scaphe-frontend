@@ -8,5 +8,7 @@ export interface RatingInterface {
   shopId: string;
   star: StarType;
   content: string;
-  user: UserInterface;
+  createdAt: Date;
+  updatedAt: Date;
+  user: UserInterface[]; // Only have 1 element (it's an array just because of the MongoDB aggregation format)
 }

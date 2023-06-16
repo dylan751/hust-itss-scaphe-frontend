@@ -4,10 +4,17 @@ import StarIcon from '@mui/icons-material/Star';
 import { Avatar, Button, Grid, Paper } from '@mui/material';
 import { Typography } from '@mui/joy';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { RatingInterface } from '../../../models/rating';
+import { format } from 'date-fns';
 const imgLink =
   'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260';
 
-const Comment = () => {
+export interface CommentProps {
+  shopRating: RatingInterface;
+}
+
+const Comment = ({ shopRating }: CommentProps) => {
+  console.log(shopRating);
   return (
     <>
       <Paper
@@ -32,7 +39,7 @@ const Comment = () => {
                   sx={{
                     marginRight: '15px',
                   }}
-                  src={imgLink}
+                  src={shopRating.user[0].avatar || imgLink}
                 />
               </Grid>
 
@@ -46,7 +53,7 @@ const Comment = () => {
                   }}
                   gutterBottom
                 >
-                  Mai Dao Tuan Thanh
+                  {shopRating.user[0].name}
                 </Typography>
                 <Grid sx={{ display: 'flex' }}>
                   <Typography
@@ -57,7 +64,7 @@ const Comment = () => {
                       fontWeight: 600,
                     }}
                   >
-                    8/5/2023
+                    {format(new Date(shopRating.createdAt), 'dd/LL/yyyy')}
                   </Typography>
                   <Typography
                     sx={{
@@ -67,7 +74,7 @@ const Comment = () => {
                       fontWeight: 600,
                     }}
                   >
-                    18:00
+                    {format(new Date(shopRating.createdAt), 'HH:mm')}
                   </Typography>
                   <Typography
                     sx={{
@@ -89,10 +96,11 @@ const Comment = () => {
                 </Grid>
               </Grid>
               <Grid sx={{ margin: 'auto' }}>
-                <StarIcon sx={{ color: '#ff9800' }} />
-                <StarIcon sx={{ color: '#ff9800' }} />
-                <StarIcon sx={{ color: '#ff9800' }} />
-                <StarIcon sx={{ color: '#ff9800' }} />
+                {Array(shopRating.star)
+                  .fill(0)
+                  .map((star, index) => (
+                    <StarIcon sx={{ color: '#ff9800' }} key={index} />
+                  ))}
               </Grid>
             </Grid>
 
@@ -104,11 +112,7 @@ const Comment = () => {
                 padding: '20px 20px',
               }}
             >
-              The quick brown fox jumps over the lazy dog is an English-language
-              pangram—a sentence that contains all of the letters of the
-              alphabet. It has been used to test typewriters and computer
-              keyboards, as well as for various other purposes. The origin of
-              the phrase is u
+              {shopRating.content}
             </Typography>
             <Grid sx={{ marginLeft: '15px' }}>
               <Button

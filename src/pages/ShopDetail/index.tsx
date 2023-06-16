@@ -28,7 +28,6 @@ const ShopDetail = () => {
     setIsLoading(true);
     const res = await shopApi.getShopById(shopId as string);
     const shopInfoData: ShopInterface = res.data.data.shop[0];
-    console.log(shopInfoData);
     setShopInfo(shopInfoData);
     setIsLoading(false);
   };
@@ -37,7 +36,7 @@ const ShopDetail = () => {
     setIsLoading(true);
     const res = await ratingApi.getRatingByShopId(shopId as string);
     const shopRatingDatas: RatingInterface[] = res.data.data.ratings;
-    console.log(shopRatingDatas);
+    // console.log(shopRatingDatas);
     setShopRatings(shopRatingDatas);
     setIsLoading(false);
   };
