@@ -14,19 +14,23 @@ interface ShopInfoProps {
 }
 
 const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
-  const [value, setValue] = useState<number | null>(5);
-  const [isChecked, setIsChecked] = useState(false);
+  const [content, setContent] = useState<string>('');
+  const [star, setStar] = useState<number | null>(3);
+  const [isTrafficOk, setIsTrafficOk] = useState(false);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   const shopTraffic = trafficDatas.find(
     (traffic) => traffic.traffic === shopInfo.traffic,
   );
 
+  const handleChangeContent = (event: any) => {
+    setContent(event.target.value);
+  };
+
   const handleCheckboxChange = (event: {
     target: { checked: boolean | ((prevState: boolean) => boolean) };
   }) => {
-    setIsChecked(event.target.checked);
-    console.log(isChecked);
+    setIsTrafficOk(event.target.checked);
   };
   const handleClick = (category: string) => {
     if (selectedCategories.includes(category)) {
@@ -38,11 +42,23 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
     }
   };
 
+  const handleSendComment = () => {
+    const commentData = {
+      content,
+      star,
+      isTrafficOk,
+      selectedCategories,
+    };
+    console.log(commentData);
+  };
+
   return (
     <FormControl>
       <Textarea
         placeholder="Type something here…"
         minRows={3}
+        value={content}
+        onChange={(e) => handleChangeContent(e)}
         startDecorator={
           <Box
             sx={{
@@ -60,9 +76,9 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
             >
               <Rating
                 name="simple-controlled"
-                value={value}
+                value={star}
                 onChange={(event, newValue) => {
-                  setValue(newValue);
+                  setStar(newValue);
                 }}
               />
             </Box>
@@ -96,7 +112,7 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
                   height: '30px',
                   marginLeft: '10px',
                 }}
-                checked={isChecked}
+                checked={isTrafficOk}
                 onChange={handleCheckboxChange}
               />
             </Button>
@@ -143,7 +159,13 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
                 height: '30px',
               }}
             >
-              <Button sx={{ ml: 'auto', marginTop: '10px' }}>Send</Button>
+              <Button
+                sx={{ ml: 'auto', marginTop: '10px' }}
+                onClick={handleSendComment}
+                disabled={!content}
+              >
+                Send
+              </Button>
             </Box>
           </Box>
         }

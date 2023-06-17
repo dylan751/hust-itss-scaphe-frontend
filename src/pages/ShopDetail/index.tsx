@@ -36,7 +36,6 @@ const ShopDetail = () => {
     setIsLoading(true);
     const res = await ratingApi.getRatingByShopId(shopId as string);
     const shopRatingDatas: RatingInterface[] = res.data.data.ratings;
-    // console.log(shopRatingDatas);
     setShopRatings(shopRatingDatas);
     setIsLoading(false);
   };
