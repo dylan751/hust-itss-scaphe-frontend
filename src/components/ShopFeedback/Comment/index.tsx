@@ -14,7 +14,6 @@ export interface CommentProps {
 }
 
 const Comment = ({ shopRating }: CommentProps) => {
-  console.log(shopRating);
   return (
     <>
       <Paper

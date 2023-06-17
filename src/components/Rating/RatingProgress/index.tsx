@@ -5,7 +5,13 @@ import LinearProgress, {
   linearProgressClasses,
 } from '@mui/material/LinearProgress';
 import { Grid } from '@mui/material';
+import { ShopInterface } from '../../../models/shop';
+import { RatingInterface } from '../../../models/rating';
 
+interface ShopInfoProps {
+  shopInfo: ShopInterface;
+  shopRatings: RatingInterface[];
+}
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 25,
   borderRadius: 5,
@@ -21,7 +27,7 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 
 // Inspired by the former Facebook spinners.
 
-export default function RatingProgress() {
+const RatingProgress = ({ shopInfo, shopRatings }: ShopInfoProps) => {
   return (
     <Grid sx={{ borderBottom: '1px solid #b0adad' }}>
       <Box
@@ -132,4 +138,6 @@ export default function RatingProgress() {
       </Box>
     </Grid>
   );
-}
+};
+
+export default RatingProgress;
