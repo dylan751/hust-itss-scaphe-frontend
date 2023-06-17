@@ -14,15 +14,42 @@ interface ShopInfoProps {
 }
 
 const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
-  const [value, setValue] = useState<number | null>(3);
-  const [color, setColor] = useState('#f4f4f8');
+  const [content, setContent] = useState<string>('');
+  const [star, setStar] = useState<number | null>(3);
+  const [isTrafficOk, setIsTrafficOk] = useState(false);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   const shopTraffic = trafficDatas.find(
     (traffic) => traffic.traffic === shopInfo.traffic,
   );
 
-  const handleClick = () => {
-    setColor(color === '#f4f4f8' ? '#b0b0b0' : '#f4f4f8');
+  const handleChangeContent = (event: any) => {
+    setContent(event.target.value);
+  };
+
+  const handleCheckboxChange = (event: {
+    target: { checked: boolean | ((prevState: boolean) => boolean) };
+  }) => {
+    setIsTrafficOk(event.target.checked);
+  };
+  const handleClick = (category: string) => {
+    if (selectedCategories.includes(category)) {
+      setSelectedCategories(
+        selectedCategories.filter((item) => item !== category),
+      );
+    } else {
+      setSelectedCategories([...selectedCategories, category]);
+    }
+  };
+
+  const handleSendComment = () => {
+    const commentData = {
+      content,
+      star,
+      isTrafficOk,
+      selectedCategories,
+    };
+    console.log(commentData);
   };
 
   return (
@@ -30,6 +57,8 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
       <Textarea
         placeholder="Type something here…"
         minRows={3}
+        value={content}
+        onChange={(e) => handleChangeContent(e)}
         startDecorator={
           <Box
             sx={{
@@ -47,9 +76,9 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
             >
               <Rating
                 name="simple-controlled"
-                value={value}
+                value={star}
                 onChange={(event, newValue) => {
-                  setValue(newValue);
+                  setStar(newValue);
                 }}
               />
             </Box>
@@ -83,6 +112,8 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
                   height: '30px',
                   marginLeft: '10px',
                 }}
+                checked={isTrafficOk}
+                onChange={handleCheckboxChange}
               />
             </Button>
           </Box>
@@ -99,7 +130,7 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
             <Grid>
               {categoryDatas.map((category) => (
                 <Button
-                  onClick={handleClick}
+                  onClick={() => handleClick(category)}
                   key={category}
                   sx={{
                     ':hover': { backgroundColor: '#b0b0b0' },
@@ -111,7 +142,9 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
                     fontWeight: 'bold',
                     borderRadius: '8px',
                     cursor: 'pointer',
-                    backgroundColor: `${color}`,
+                    backgroundColor: selectedCategories.includes(category)
+                      ? '#b0b0b0'
+                      : '#f4f4f8',
                   }}
                 >
                   {category}
@@ -126,7 +159,13 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
                 height: '30px',
               }}
             >
-              <Button sx={{ ml: 'auto', marginTop: '10px' }}>Send</Button>
+              <Button
+                sx={{ ml: 'auto', marginTop: '10px' }}
+                onClick={handleSendComment}
+                disabled={!content}
+              >
+                Send
+              </Button>
             </Box>
           </Box>
         }
