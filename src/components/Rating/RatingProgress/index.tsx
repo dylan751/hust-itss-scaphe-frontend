@@ -5,11 +5,10 @@ import LinearProgress, {
   linearProgressClasses,
 } from '@mui/material/LinearProgress';
 import { Grid } from '@mui/material';
-import { ShopInterface } from '../../../models/shop';
 import { RatingInterface } from '../../../models/rating';
+import { calculateStarPercentage } from '../../../utils/calculateStarPercentage';
 
 interface ShopInfoProps {
-  shopInfo: ShopInterface;
   shopRatings: RatingInterface[];
 }
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
@@ -27,7 +26,15 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
 
 // Inspired by the former Facebook spinners.
 
-const RatingProgress = ({ shopInfo, shopRatings }: ShopInfoProps) => {
+const RatingProgress = ({ shopRatings }: ShopInfoProps) => {
+  const {
+    oneStarPercentage,
+    twoStarPercentage,
+    threeStarPercentage,
+    fourStarPercentage,
+    fiveStarPercentage,
+  } = calculateStarPercentage(shopRatings);
+
   return (
     <Grid sx={{ borderBottom: '1px solid #b0adad' }}>
       <Box
@@ -46,10 +53,13 @@ const RatingProgress = ({ shopInfo, shopRatings }: ShopInfoProps) => {
             borderRadius: '5px',
           }}
         >
-          <BorderLinearProgress variant="determinate" value={72} />{' '}
+          <BorderLinearProgress
+            variant="determinate"
+            value={fiveStarPercentage}
+          />
           {/* value is percent of rating */}
         </Box>
-        <Grid sx={{ fontSize: '16px' }}>72%</Grid>
+        <Grid sx={{ fontSize: '16px' }}>{fiveStarPercentage}%</Grid>
       </Box>
       <Box
         sx={{
@@ -67,10 +77,13 @@ const RatingProgress = ({ shopInfo, shopRatings }: ShopInfoProps) => {
             borderRadius: '5px',
           }}
         >
-          <BorderLinearProgress variant="determinate" value={14} />{' '}
+          <BorderLinearProgress
+            variant="determinate"
+            value={fourStarPercentage}
+          />{' '}
           {/* value is percent of rating */}
         </Box>
-        <Grid sx={{ fontSize: '16px' }}>14%</Grid>
+        <Grid sx={{ fontSize: '16px' }}>{fourStarPercentage}%</Grid>
       </Box>
       <Box
         sx={{
@@ -88,10 +101,13 @@ const RatingProgress = ({ shopInfo, shopRatings }: ShopInfoProps) => {
             borderRadius: '5px',
           }}
         >
-          <BorderLinearProgress variant="determinate" value={6} />{' '}
+          <BorderLinearProgress
+            variant="determinate"
+            value={threeStarPercentage}
+          />{' '}
           {/* value is percent of rating */}
         </Box>
-        <Grid sx={{ fontSize: '16px' }}>6%</Grid>
+        <Grid sx={{ fontSize: '16px' }}>{threeStarPercentage}%</Grid>
       </Box>
       <Box
         sx={{
@@ -109,10 +125,13 @@ const RatingProgress = ({ shopInfo, shopRatings }: ShopInfoProps) => {
             borderRadius: '5px',
           }}
         >
-          <BorderLinearProgress variant="determinate" value={5} />{' '}
+          <BorderLinearProgress
+            variant="determinate"
+            value={twoStarPercentage}
+          />{' '}
           {/* value is percent of rating */}
         </Box>
-        <Grid sx={{ fontSize: '16px' }}>5%</Grid>
+        <Grid sx={{ fontSize: '16px' }}>{twoStarPercentage}%</Grid>
       </Box>
       <Box
         sx={{
@@ -131,10 +150,13 @@ const RatingProgress = ({ shopInfo, shopRatings }: ShopInfoProps) => {
             borderRadius: '5px',
           }}
         >
-          <BorderLinearProgress variant="determinate" value={3} />{' '}
+          <BorderLinearProgress
+            variant="determinate"
+            value={oneStarPercentage}
+          />{' '}
           {/* value is percent of rating */}
         </Box>
-        <Grid sx={{ fontSize: '16px' }}>3%</Grid>
+        <Grid sx={{ fontSize: '16px' }}>{oneStarPercentage}%</Grid>
       </Box>
     </Grid>
   );
