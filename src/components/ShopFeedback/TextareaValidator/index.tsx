@@ -14,15 +14,28 @@ interface ShopInfoProps {
 }
 
 const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
-  const [value, setValue] = useState<number | null>(3);
-  const [color, setColor] = useState('#f4f4f8');
+  const [value, setValue] = useState<number | null>(5);
+  const [isChecked, setIsChecked] = useState(false);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   const shopTraffic = trafficDatas.find(
     (traffic) => traffic.traffic === shopInfo.traffic,
   );
 
-  const handleClick = () => {
-    setColor(color === '#f4f4f8' ? '#b0b0b0' : '#f4f4f8');
+  const handleCheckboxChange = (event: {
+    target: { checked: boolean | ((prevState: boolean) => boolean) };
+  }) => {
+    setIsChecked(event.target.checked);
+    console.log(isChecked);
+  };
+  const handleClick = (category: string) => {
+    if (selectedCategories.includes(category)) {
+      setSelectedCategories(
+        selectedCategories.filter((item) => item !== category),
+      );
+    } else {
+      setSelectedCategories([...selectedCategories, category]);
+    }
   };
 
   return (
@@ -83,6 +96,8 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
                   height: '30px',
                   marginLeft: '10px',
                 }}
+                checked={isChecked}
+                onChange={handleCheckboxChange}
               />
             </Button>
           </Box>
@@ -99,7 +114,7 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
             <Grid>
               {categoryDatas.map((category) => (
                 <Button
-                  onClick={handleClick}
+                  onClick={() => handleClick(category)}
                   key={category}
                   sx={{
                     ':hover': { backgroundColor: '#b0b0b0' },
@@ -111,7 +126,9 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
                     fontWeight: 'bold',
                     borderRadius: '8px',
                     cursor: 'pointer',
-                    backgroundColor: `${color}`,
+                    backgroundColor: selectedCategories.includes(category)
+                      ? '#b0b0b0'
+                      : '#f4f4f8',
                   }}
                 >
                   {category}

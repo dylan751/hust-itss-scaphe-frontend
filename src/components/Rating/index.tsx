@@ -32,7 +32,7 @@ const Rating = ({ shopInfo, shopRatings }: ShopInfoProps) => {
       >
         {shopRatings.length} レビュー
       </Typography>
-      <RatingProgress />
+      <RatingProgress shopInfo={shopInfo} shopRatings={shopRatings} />
       <Container
         sx={{
           display: 'flex',
