@@ -29,6 +29,7 @@ import StarIcon from '@mui/icons-material/Star';
 import { starDatas } from '../../data/Shop/Star';
 import { ITEM_HEIGHT, ITEM_PADDING_TOP } from '../../constants/Menu';
 import { countryDatas } from '../../data/Shop/Country';
+import { getFilteredShopRatings } from '../../utils/getFilteredShopRatings';
 
 interface ShopInfoProps {
   shopInfo: ShopInterface;
@@ -47,6 +48,13 @@ const ShopFeedback = ({
   handleChangeStar,
   handleChangeCountries,
 }: ShopInfoProps) => {
+  // Filter on FE
+  const filteredShopRatings = getFilteredShopRatings(
+    shopRatings,
+    star,
+    countries,
+  );
+
   return (
     <>
       <Grid
@@ -94,7 +102,7 @@ const ShopFeedback = ({
         <Grid item xs={7}>
           <Grid>
             <FormControl sx={{ m: '20px 20px 20px 0', width: 200 }}>
-              <InputLabel id="review-input-select-label">５スター</InputLabel>
+              <InputLabel id="review-input-select-label">スター</InputLabel>
               <Select
                 labelId="review-input-select-label"
                 id="review-input-label"
@@ -104,7 +112,7 @@ const ShopFeedback = ({
                 MenuProps={MenuProps}
               >
                 <MenuItem value="" sx={{ height: '36px', opacity: '0.3' }}>
-                  リセット
+                  全ての評価
                 </MenuItem>
                 {starDatas.map((star: string) => (
                   <MenuItem key={star} value={star}>
@@ -135,7 +143,7 @@ const ShopFeedback = ({
             </FormControl>
           </Grid>
           <TextareaValidator shopInfo={shopInfo} />
-          {shopRatings.map((shopRating, index) => (
+          {filteredShopRatings.map((shopRating, index) => (
             <Comment key={index} shopInfo={shopInfo} shopRating={shopRating} />
           ))}
         </Grid>

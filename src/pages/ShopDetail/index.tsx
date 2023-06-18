@@ -24,7 +24,8 @@ const ShopDetail = () => {
     categories: [],
   });
   const [shopRatings, setShopRatings] = useState<RatingInterface[]>([]);
-  const [star, setStar] = useState('1');
+
+  const [star, setStar] = useState('');
   const handleChangeStar = (event: SelectChangeEvent) => {
     setStar(event.target.value as string);
   };
@@ -40,6 +41,7 @@ const ShopDetail = () => {
       typeof value === 'string' ? value.split(',') : value,
     );
   };
+
   const getShopInfo = async () => {
     setIsLoading(true);
     const res = await shopApi.getShopById(shopId as string);
