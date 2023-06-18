@@ -7,6 +7,7 @@ import Loading from '../../components/Loading';
 import ShopFeedback from '../../components/ShopFeedback';
 import ratingApi from '../../services/ratingApi';
 import { RatingInterface } from '../../models/rating';
+import { SelectChangeEvent } from '@mui/material';
 
 const ShopDetail = () => {
   const { shopId } = useParams();
@@ -23,7 +24,22 @@ const ShopDetail = () => {
     categories: [],
   });
   const [shopRatings, setShopRatings] = useState<RatingInterface[]>([]);
-
+  const [star, setStar] = useState('1');
+  const handleChangeStar = (event: SelectChangeEvent) => {
+    setStar(event.target.value as string);
+  };
+  const [categories, setCategories] = useState<string[]>([]);
+  const handleChangeCategories = (
+    event: SelectChangeEvent<typeof categories>,
+  ) => {
+    const {
+      target: { value },
+    } = event;
+    setCategories(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+  };
   const getShopInfo = async () => {
     setIsLoading(true);
     const res = await shopApi.getShopById(shopId as string);
@@ -52,7 +68,14 @@ const ShopDetail = () => {
       ) : (
         <>
           <ShopInfo shopInfo={shopInfo} />
-          <ShopFeedback shopInfo={shopInfo} shopRatings={shopRatings} />
+          <ShopFeedback
+            shopInfo={shopInfo}
+            shopRatings={shopRatings}
+            categories={categories}
+            handleChangeCategories={handleChangeCategories}
+            star={star}
+            handleChangeStar={handleChangeStar}
+          />
         </>
       )}
     </>
