@@ -7,6 +7,7 @@ import Loading from '../../components/Loading';
 import ShopFeedback from '../../components/ShopFeedback';
 import ratingApi from '../../services/ratingApi';
 import { RatingInterface } from '../../models/rating';
+import { SelectChangeEvent } from '@mui/material';
 
 const ShopDetail = () => {
   const { shopId } = useParams();
@@ -23,6 +24,23 @@ const ShopDetail = () => {
     categories: [],
   });
   const [shopRatings, setShopRatings] = useState<RatingInterface[]>([]);
+
+  const [star, setStar] = useState('');
+  const handleChangeStar = (event: SelectChangeEvent) => {
+    setStar(event.target.value as string);
+  };
+  const [countries, setCountries] = useState<string[]>([]);
+  const handleChangeCountries = (
+    event: SelectChangeEvent<typeof countries>,
+  ) => {
+    const {
+      target: { value },
+    } = event;
+    setCountries(
+      // On autofill we get a stringified value.
+      typeof value === 'string' ? value.split(',') : value,
+    );
+  };
 
   const getShopInfo = async () => {
     setIsLoading(true);
@@ -52,7 +70,14 @@ const ShopDetail = () => {
       ) : (
         <>
           <ShopInfo shopInfo={shopInfo} />
-          <ShopFeedback shopInfo={shopInfo} shopRatings={shopRatings} />
+          <ShopFeedback
+            shopInfo={shopInfo}
+            shopRatings={shopRatings}
+            countries={countries}
+            handleChangeCountries={handleChangeCountries}
+            star={star}
+            handleChangeStar={handleChangeStar}
+          />
         </>
       )}
     </>
