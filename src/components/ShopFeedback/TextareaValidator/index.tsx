@@ -8,6 +8,8 @@ import { useState } from 'react';
 import { ShopInterface } from '../../../models/shop';
 import { trafficDatas } from '../../../data/Shop/Traffic';
 import { CategoryInterface } from '../../../models/category';
+import ratingApi from '../../../services/ratingApi';
+import { CreateRatingRequestInterface, StarType } from '../../../models/rating';
 
 interface ShopInfoProps {
   shopInfo: ShopInterface;
@@ -15,7 +17,7 @@ interface ShopInfoProps {
 
 const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
   const [content, setContent] = useState<string>('');
-  const [star, setStar] = useState<number | null>(3);
+  const [star, setStar] = useState<StarType>(3);
   const [isTrafficOk, setIsTrafficOk] = useState(false);
   const [selectedCategoryIds, setSelectedCategoryIds] = useState<string[]>([]);
 
@@ -42,14 +44,21 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
     }
   };
 
-  const handleSendComment = () => {
-    const commentData = {
+  const handleSendComment = async () => {
+    const commentData: CreateRatingRequestInterface = {
+      shopId: shopInfo._id,
+      userId: '647bf2c8a982007b6673d1ca', // TODO: Add user functions (This is just dummy user in DB for now)
       content,
       star,
       categoryIds: selectedCategoryIds,
       isTrafficOk,
     };
-    console.log(commentData);
+
+    await ratingApi.createRating(commentData);
+
+    // TODO: Toast success message
+
+    // TODO: Refetch shopInfo after create success
   };
 
   return (
@@ -78,7 +87,7 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
                 name="simple-controlled"
                 value={star}
                 onChange={(event, newValue) => {
-                  setStar(newValue);
+                  setStar(newValue as StarType);
                 }}
               />
             </Box>

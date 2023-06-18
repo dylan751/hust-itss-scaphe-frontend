@@ -8,7 +8,18 @@ export interface RatingInterface {
   shopId: string;
   star: StarType;
   content: string;
+  categoryIds: string[];
+  isTrafficOk: boolean;
   createdAt: Date;
   updatedAt: Date;
   user: UserInterface[]; // Only have 1 element (it's an array just because of the MongoDB aggregation format)
+}
+
+export interface CreateRatingRequestInterface {
+  userId: string;
+  shopId: string;
+  star: StarType;
+  content: string;
+  categoryIds: string[];
+  isTrafficOk: boolean;
 }

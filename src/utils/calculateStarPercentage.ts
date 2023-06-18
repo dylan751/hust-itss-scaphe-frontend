@@ -28,11 +28,17 @@ export const calculateStarPercentage = (shopRatings: RatingInterface[]) => {
     }
   });
 
-  const oneStarPercentage = (oneStarCount * 100) / totalRatingCount;
-  const twoStarPercentage = (twoStarCount * 100) / totalRatingCount;
-  const threeStarPercentage = (threeStarCount * 100) / totalRatingCount;
-  const fourStarPercentage = (fourStarCount * 100) / totalRatingCount;
-  const fiveStarPercentage = (fiveStarCount * 100) / totalRatingCount;
+  const oneStarPercentage = Math.round((oneStarCount * 100) / totalRatingCount);
+  const twoStarPercentage = Math.round((twoStarCount * 100) / totalRatingCount);
+  const threeStarPercentage = Math.round(
+    (threeStarCount * 100) / totalRatingCount,
+  );
+  const fourStarPercentage = Math.round(
+    (fourStarCount * 100) / totalRatingCount,
+  );
+  const fiveStarPercentage = Math.round(
+    (fiveStarCount * 100) / totalRatingCount,
+  );
 
   return {
     oneStarPercentage,
