@@ -4,10 +4,12 @@ import Button from '@mui/joy/Button';
 import FormControl from '@mui/joy/FormControl';
 import Textarea from '@mui/joy/Textarea';
 import { Checkbox, Grid, Rating, Typography } from '@mui/material';
-import { categoryDatas } from '../../../data/Shop/Category';
 import { useState } from 'react';
 import { ShopInterface } from '../../../models/shop';
 import { trafficDatas } from '../../../data/Shop/Traffic';
+import { CategoryInterface } from '../../../models/category';
+import ratingApi from '../../../services/ratingApi';
+import { CreateRatingRequestInterface, StarType } from '../../../models/rating';
 
 interface ShopInfoProps {
   shopInfo: ShopInterface;
@@ -15,9 +17,9 @@ interface ShopInfoProps {
 
 const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
   const [content, setContent] = useState<string>('');
-  const [star, setStar] = useState<number | null>(3);
+  const [star, setStar] = useState<StarType>(3);
   const [isTrafficOk, setIsTrafficOk] = useState(false);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedCategoryIds, setSelectedCategoryIds] = useState<string[]>([]);
 
   const shopTraffic = trafficDatas.find(
     (traffic) => traffic.traffic === shopInfo.traffic,
@@ -32,24 +34,33 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
   }) => {
     setIsTrafficOk(event.target.checked);
   };
-  const handleClick = (category: string) => {
-    if (selectedCategories.includes(category)) {
-      setSelectedCategories(
-        selectedCategories.filter((item) => item !== category),
+  const handleClick = (categoryId: string) => {
+    if (selectedCategoryIds.includes(categoryId)) {
+      setSelectedCategoryIds(
+        selectedCategoryIds.filter((item) => item !== categoryId),
       );
     } else {
-      setSelectedCategories([...selectedCategories, category]);
+      setSelectedCategoryIds([...selectedCategoryIds, categoryId]);
     }
   };
 
-  const handleSendComment = () => {
-    const commentData = {
+  const handleSendComment = async () => {
+    const commentData: CreateRatingRequestInterface = {
+      shopId: shopInfo._id,
+      userId: '647bf2c8a982007b6673d1ca', // TODO: Add user functions (This is just dummy user in DB for now)
       content,
       star,
+      categoryIds: selectedCategoryIds,
       isTrafficOk,
-      selectedCategories,
     };
-    console.log(commentData);
+
+    await ratingApi.createRating(commentData);
+
+    // TODO: Toast success message
+
+    // TODO: Reset input fields
+
+    // TODO: Refetch shopInfo after create success
   };
 
   return (
@@ -78,7 +89,7 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
                 name="simple-controlled"
                 value={star}
                 onChange={(event, newValue) => {
-                  setStar(newValue);
+                  setStar(newValue as StarType);
                 }}
               />
             </Box>
@@ -128,10 +139,10 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
             }}
           >
             <Grid>
-              {categoryDatas.map((category) => (
+              {shopInfo.categories.map((category: CategoryInterface) => (
                 <Button
-                  onClick={() => handleClick(category)}
-                  key={category}
+                  onClick={() => handleClick(category._id)}
+                  key={category.category}
                   sx={{
                     ':hover': { backgroundColor: '#b0b0b0' },
                     margin: '10px 5px',
@@ -142,12 +153,12 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
                     fontWeight: 'bold',
                     borderRadius: '8px',
                     cursor: 'pointer',
-                    backgroundColor: selectedCategories.includes(category)
+                    backgroundColor: selectedCategoryIds.includes(category._id)
                       ? '#b0b0b0'
                       : '#f4f4f8',
                   }}
                 >
-                  {category}
+                  {category.category}
                 </Button>
               ))}
             </Grid>
