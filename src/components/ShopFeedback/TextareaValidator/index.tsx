@@ -17,7 +17,7 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
   const [content, setContent] = useState<string>('');
   const [star, setStar] = useState<number | null>(3);
   const [isTrafficOk, setIsTrafficOk] = useState(false);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedCategoryIds, setSelectedCategoryIds] = useState<string[]>([]);
 
   const shopTraffic = trafficDatas.find(
     (traffic) => traffic.traffic === shopInfo.traffic,
@@ -32,13 +32,13 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
   }) => {
     setIsTrafficOk(event.target.checked);
   };
-  const handleClick = (category: string) => {
-    if (selectedCategories.includes(category)) {
-      setSelectedCategories(
-        selectedCategories.filter((item) => item !== category),
+  const handleClick = (categoryId: string) => {
+    if (selectedCategoryIds.includes(categoryId)) {
+      setSelectedCategoryIds(
+        selectedCategoryIds.filter((item) => item !== categoryId),
       );
     } else {
-      setSelectedCategories([...selectedCategories, category]);
+      setSelectedCategoryIds([...selectedCategoryIds, categoryId]);
     }
   };
 
@@ -46,8 +46,8 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
     const commentData = {
       content,
       star,
+      categoryIds: selectedCategoryIds,
       isTrafficOk,
-      selectedCategories,
     };
     console.log(commentData);
   };
@@ -142,7 +142,7 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
                     fontWeight: 'bold',
                     borderRadius: '8px',
                     cursor: 'pointer',
-                    backgroundColor: selectedCategories.includes(category._id)
+                    backgroundColor: selectedCategoryIds.includes(category._id)
                       ? '#b0b0b0'
                       : '#f4f4f8',
                   }}
