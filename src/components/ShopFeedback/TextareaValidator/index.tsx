@@ -58,6 +58,8 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
 
     // TODO: Toast success message
 
+    // TODO: Reset input fields
+
     // TODO: Refetch shopInfo after create success
   };
 

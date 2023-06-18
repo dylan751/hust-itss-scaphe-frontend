@@ -89,7 +89,7 @@ const ShopFeedback = ({ shopInfo, shopRatings }: ShopInfoProps) => {
           </Grid>
           <TextareaValidator shopInfo={shopInfo} />
           {shopRatings.map((shopRating, index) => (
-            <Comment key={index} shopRating={shopRating} />
+            <Comment key={index} shopInfo={shopInfo} shopRating={shopRating} />
           ))}
         </Grid>
         <Grid
