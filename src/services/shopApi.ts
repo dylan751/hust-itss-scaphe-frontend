@@ -15,7 +15,6 @@ class shopApi {
     let dateTime = '';
     if (selectedDateTime !== null) {
       dateTime = format(selectedDateTime as Date, 'e dd/LL/yyyy HH:mm:ss b');
-      console.log(dateTime);
     }
     return await authAxios(
       `${process.env.REACT_APP_API_DOMAIN}/api/v1/shops?searchTerm=${searchTerm}&city=${cityName}&district=${districtName}&star=${star}&sort=${sort}&categories=${categories}&dateTime=${dateTime}`,

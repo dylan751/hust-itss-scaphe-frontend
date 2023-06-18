@@ -1,5 +1,5 @@
 import authAxios from './authAxios';
-import { RatingInterface } from '../models/rating';
+import { CreateRatingRequestInterface, RatingInterface } from '../models/rating';
 
 class ratingApi {
   getRatings = async () => {
@@ -50,7 +50,7 @@ class ratingApi {
     );
   };
 
-  createRating = async (ratingData: RatingInterface) => {
+  createRating = async (ratingData: CreateRatingRequestInterface) => {
     return await authAxios(
       `${process.env.REACT_APP_API_DOMAIN}/api/v1/ratings`,
       {

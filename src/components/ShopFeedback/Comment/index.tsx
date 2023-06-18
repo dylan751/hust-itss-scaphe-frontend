@@ -6,14 +6,21 @@ import { Typography } from '@mui/joy';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { RatingInterface } from '../../../models/rating';
 import { format } from 'date-fns';
+import { ShopInterface } from '../../../models/shop';
+import { trafficDatas } from '../../../data/Shop/Traffic';
 const imgLink =
   'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260';
 
 export interface CommentProps {
   shopRating: RatingInterface;
+  shopInfo: ShopInterface;
 }
 
-const Comment = ({ shopRating }: CommentProps) => {
+const Comment = ({ shopInfo, shopRating }: CommentProps) => {
+  const shopTraffic = trafficDatas.find(
+    (traffic) => traffic.traffic === shopInfo.traffic,
+  );
+
   return (
     <>
       <Paper
@@ -83,15 +90,17 @@ const Comment = ({ shopRating }: CommentProps) => {
                       fontWeight: 600,
                     }}
                   >
-                    混雑状況:中
+                    混雑状況:{shopTraffic?.label}
                   </Typography>
-                  <CheckCircleIcon
-                    sx={{
-                      margin: 'auto',
-                      fontSize: '30px',
-                      color: 'green',
-                    }}
-                  />
+                  {shopRating.isTrafficOk && (
+                    <CheckCircleIcon
+                      sx={{
+                        margin: 'auto',
+                        fontSize: '30px',
+                        color: 'green',
+                      }}
+                    />
+                  )}
                 </Grid>
               </Grid>
               <Grid sx={{ margin: 'auto' }}>
@@ -114,43 +123,28 @@ const Comment = ({ shopRating }: CommentProps) => {
               {shopRating.content}
             </Typography>
             <Grid sx={{ marginLeft: '15px' }}>
-              <Button
-                sx={{
-                  ':hover': {
-                    cursor: 'default',
+              {shopRating.categories.map((category, index) => (
+                <Button
+                  key={index}
+                  sx={{
+                    ':hover': {
+                      cursor: 'default',
+                      backgroundColor: '#b0b0b0',
+                    },
+                    margin: '10px 5px',
+                    fontSize: '16px',
+                    padding: '0px 5px',
+                    color: 'black',
+                    border: '2px solid black',
+                    fontWeight: 'bold',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
                     backgroundColor: '#b0b0b0',
-                  },
-                  margin: '10px 5px',
-                  fontSize: '16px',
-                  padding: '0px 5px',
-                  color: 'black',
-                  border: '2px solid black',
-                  fontWeight: 'bold',
-                  borderRadius: '8px',
-                  cursor: 'pointer',
-                  backgroundColor: '#b0b0b0',
-                }}
-              >
-                英語OK
-              </Button>
-              <Button
-                sx={{
-                  ':hover': {
-                    cursor: 'default',
-                    backgroundColor: '#b0b0b0',
-                  },
-                  margin: '10px 5px',
-                  fontSize: '16px',
-                  padding: '0px 5px',
-                  color: 'black',
-                  border: '2px solid black',
-                  fontWeight: 'bold',
-                  borderRadius: '8px',
-                  backgroundColor: '#b0b0b0',
-                }}
-              >
-                個室
-              </Button>
+                  }}
+                >
+                  {category.category}
+                </Button>
+              ))}
             </Grid>
           </Grid>
         </Grid>
