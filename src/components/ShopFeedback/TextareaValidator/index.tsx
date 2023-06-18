@@ -4,10 +4,10 @@ import Button from '@mui/joy/Button';
 import FormControl from '@mui/joy/FormControl';
 import Textarea from '@mui/joy/Textarea';
 import { Checkbox, Grid, Rating, Typography } from '@mui/material';
-import { categoryDatas } from '../../../data/Shop/Category';
 import { useState } from 'react';
 import { ShopInterface } from '../../../models/shop';
 import { trafficDatas } from '../../../data/Shop/Traffic';
+import { CategoryInterface } from '../../../models/category';
 
 interface ShopInfoProps {
   shopInfo: ShopInterface;
@@ -128,10 +128,10 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
             }}
           >
             <Grid>
-              {categoryDatas.map((category) => (
+              {shopInfo.categories.map((category: CategoryInterface) => (
                 <Button
-                  onClick={() => handleClick(category)}
-                  key={category}
+                  onClick={() => handleClick(category._id)}
+                  key={category.category}
                   sx={{
                     ':hover': { backgroundColor: '#b0b0b0' },
                     margin: '10px 5px',
@@ -142,12 +142,12 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
                     fontWeight: 'bold',
                     borderRadius: '8px',
                     cursor: 'pointer',
-                    backgroundColor: selectedCategories.includes(category)
+                    backgroundColor: selectedCategories.includes(category._id)
                       ? '#b0b0b0'
                       : '#f4f4f8',
                   }}
                 >
-                  {category}
+                  {category.category}
                 </Button>
               ))}
             </Grid>
