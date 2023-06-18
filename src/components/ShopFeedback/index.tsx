@@ -28,24 +28,24 @@ import { RatingInterface } from '../../models/rating';
 import StarIcon from '@mui/icons-material/Star';
 import { starDatas } from '../../data/Shop/Star';
 import { ITEM_HEIGHT, ITEM_PADDING_TOP } from '../../constants/Menu';
-import { categoryDatas } from '../../data/Shop/Category';
+import { countryDatas } from '../../data/Shop/Country';
 
 interface ShopInfoProps {
   shopInfo: ShopInterface;
   shopRatings: RatingInterface[];
   star: string;
-  categories: string[];
+  countries: string[];
   handleChangeStar: (event: SelectChangeEvent) => void;
-  handleChangeCategories: (event: SelectChangeEvent<string[]>) => void;
+  handleChangeCountries: (event: SelectChangeEvent<string[]>) => void;
 }
 
 const ShopFeedback = ({
   shopInfo,
   shopRatings,
   star,
-  categories,
+  countries,
   handleChangeStar,
-  handleChangeCategories,
+  handleChangeCountries,
 }: ShopInfoProps) => {
   return (
     <>
@@ -113,38 +113,22 @@ const ShopFeedback = ({
                 ))}
               </Select>
             </FormControl>
-            {/* <Button
-              sx={{
-                margin: '20px 10px',
-                fontSize: '20px',
-                padding: '2px 40px',
-                color: 'black',
-                border: '2px solid',
-                fontWeight: 'bold',
-                borderRadius: '8px',
-              }}
-              variant="text"
-            >
-              ベトナム
-            </Button> */}
             <FormControl sx={{ m: '20px 20px 20px 0', width: 200 }}>
-              <InputLabel id="categories-input-select-label">
-                カテゴリ
-              </InputLabel>
+              <InputLabel id="Countries-input-select-label">国</InputLabel>
               <Select
-                labelId="categories-input-select-label"
-                id="categories-input"
+                labelId="Countries-input-select-label"
+                id="Countries-input"
                 multiple
-                value={categories}
-                label="カテゴリ"
-                onChange={handleChangeCategories}
+                value={countries}
+                label="国"
+                onChange={handleChangeCountries}
                 renderValue={(selected: string[]) => selected.join(', ')}
                 MenuProps={MenuProps}
               >
-                {categoryDatas.map((categoryData: string) => (
-                  <MenuItem key={categoryData} value={categoryData}>
-                    <Checkbox checked={categories.indexOf(categoryData) > -1} />
-                    <ListItemText primary={categoryData} />
+                {countryDatas.map((countryData: string) => (
+                  <MenuItem key={countryData} value={countryData}>
+                    <Checkbox checked={countries.indexOf(countryData) > -1} />
+                    <ListItemText primary={countryData} />
                   </MenuItem>
                 ))}
               </Select>

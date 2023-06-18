@@ -28,14 +28,14 @@ const ShopDetail = () => {
   const handleChangeStar = (event: SelectChangeEvent) => {
     setStar(event.target.value as string);
   };
-  const [categories, setCategories] = useState<string[]>([]);
-  const handleChangeCategories = (
-    event: SelectChangeEvent<typeof categories>,
+  const [countries, setCountries] = useState<string[]>([]);
+  const handleChangeCountries = (
+    event: SelectChangeEvent<typeof countries>,
   ) => {
     const {
       target: { value },
     } = event;
-    setCategories(
+    setCountries(
       // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value,
     );
@@ -71,8 +71,8 @@ const ShopDetail = () => {
           <ShopFeedback
             shopInfo={shopInfo}
             shopRatings={shopRatings}
-            categories={categories}
-            handleChangeCategories={handleChangeCategories}
+            countries={countries}
+            handleChangeCountries={handleChangeCountries}
             star={star}
             handleChangeStar={handleChangeStar}
           />
