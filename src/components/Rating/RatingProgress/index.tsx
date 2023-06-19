@@ -45,7 +45,7 @@ const RatingProgress = ({ shopRatings }: ShopInfoProps) => {
           marginTop: '30px',
         }}
       >
-        <Grid sx={{ fontSize: '16px' }} xs={2}>
+        <Grid item sx={{ fontSize: '16px' }} xs={2}>
           5スター
         </Grid>
         <Box
@@ -61,7 +61,7 @@ const RatingProgress = ({ shopRatings }: ShopInfoProps) => {
           />
           {/* value is percent of rating */}
         </Box>
-        <Grid xs={2} sx={{ fontSize: '16px' }}>
+        <Grid item sx={{ fontSize: '16px' }} xs={2}>
           {fiveStarPercentage}%
         </Grid>
       </Box>
@@ -73,7 +73,7 @@ const RatingProgress = ({ shopRatings }: ShopInfoProps) => {
           marginTop: '30px',
         }}
       >
-        <Grid sx={{ fontSize: '16px' }} xs={2}>
+        <Grid item sx={{ fontSize: '16px' }} xs={2}>
           4スター
         </Grid>
         <Box
@@ -89,7 +89,7 @@ const RatingProgress = ({ shopRatings }: ShopInfoProps) => {
           />
           {/* value is percent of rating */}
         </Box>
-        <Grid xs={2} sx={{ fontSize: '16px' }}>
+        <Grid item sx={{ fontSize: '16px' }} xs={2}>
           {fourStarPercentage}%
         </Grid>
       </Box>{' '}
@@ -101,7 +101,7 @@ const RatingProgress = ({ shopRatings }: ShopInfoProps) => {
           marginTop: '30px',
         }}
       >
-        <Grid sx={{ fontSize: '16px' }} xs={2}>
+        <Grid item sx={{ fontSize: '16px' }} xs={2}>
           3スター
         </Grid>
         <Box
@@ -117,7 +117,7 @@ const RatingProgress = ({ shopRatings }: ShopInfoProps) => {
           />
           {/* value is percent of rating */}
         </Box>
-        <Grid xs={2} sx={{ fontSize: '16px' }}>
+        <Grid item sx={{ fontSize: '16px' }} xs={2}>
           {threeStarPercentage}%
         </Grid>
       </Box>{' '}
@@ -129,7 +129,7 @@ const RatingProgress = ({ shopRatings }: ShopInfoProps) => {
           marginTop: '30px',
         }}
       >
-        <Grid sx={{ fontSize: '16px' }} xs={2}>
+        <Grid item sx={{ fontSize: '16px' }} xs={2}>
           2スター
         </Grid>
         <Box
@@ -145,7 +145,7 @@ const RatingProgress = ({ shopRatings }: ShopInfoProps) => {
           />
           {/* value is percent of rating */}
         </Box>
-        <Grid xs={2} sx={{ fontSize: '16px' }}>
+        <Grid item sx={{ fontSize: '16px' }} xs={2}>
           {twoStarPercentage}%
         </Grid>
       </Box>{' '}
@@ -158,7 +158,7 @@ const RatingProgress = ({ shopRatings }: ShopInfoProps) => {
           marginBottom: '30px',
         }}
       >
-        <Grid sx={{ fontSize: '16px' }} xs={2}>
+        <Grid item sx={{ fontSize: '16px' }} xs={2}>
           1スター
         </Grid>
         <Box
@@ -174,7 +174,7 @@ const RatingProgress = ({ shopRatings }: ShopInfoProps) => {
           />
           {/* value is percent of rating */}
         </Box>
-        <Grid xs={2} sx={{ fontSize: '16px' }}>
+        <Grid item sx={{ fontSize: '16px' }} xs={2}>
           {oneStarPercentage}%
         </Grid>
       </Box>
