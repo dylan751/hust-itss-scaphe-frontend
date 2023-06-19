@@ -1,5 +1,8 @@
 import authAxios from './authAxios';
-import { CreateRatingRequestInterface, RatingInterface } from '../models/rating';
+import {
+  CreateRatingRequestInterface,
+  RatingInterface,
+} from '../models/rating';
 
 class ratingApi {
   getRatings = async () => {
