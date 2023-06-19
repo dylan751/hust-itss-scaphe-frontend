@@ -10,6 +10,7 @@ import { trafficDatas } from '../../../data/Shop/Traffic';
 import { CategoryInterface } from '../../../models/category';
 import ratingApi from '../../../services/ratingApi';
 import { CreateRatingRequestInterface, StarType } from '../../../models/rating';
+import { toast } from 'react-toastify';
 
 interface ShopInfoProps {
   shopInfo: ShopInterface;
@@ -56,12 +57,15 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
 
     await ratingApi.createRating(commentData);
 
-    // TODO: Toast success message
+    // Toast success message
+    toast.success('コメントできました!');
 
     // TODO: Reset input fields
     // TODO: Refetch shopInfo after create success
-    // For now, just solve by reload page
-    location.reload();
+    // For now, just solve by reload page after 1s
+    setInterval(() => {
+      location.reload();
+    }, 1000);
   };
 
   return (
