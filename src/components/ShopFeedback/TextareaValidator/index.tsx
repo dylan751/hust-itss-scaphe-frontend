@@ -55,17 +55,20 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
       isTrafficOk,
     };
 
-    await ratingApi.createRating(commentData);
+    try {
+      await ratingApi.createRating(commentData);
+      // Toast success message
+      toast.success('コメントできました!');
 
-    // Toast success message
-    toast.success('コメントできました!');
-
-    // TODO: Reset input fields
-    // TODO: Refetch shopInfo after create success
-    // For now, just solve by reload page after 1s
-    setInterval(() => {
-      location.reload();
-    }, 1000);
+      // TODO: Reset input fields
+      // TODO: Refetch shopInfo after create success
+      // For now, just solve by reload page after 1s
+      setInterval(() => {
+        location.reload();
+      }, 1000);
+    } catch (err) {
+      toast.error('コメント失敗しました!');
+    }
   };
 
   return (
