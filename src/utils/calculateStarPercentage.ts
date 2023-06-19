@@ -8,6 +8,17 @@ export const calculateStarPercentage = (shopRatings: RatingInterface[]) => {
   let fourStarCount = 0;
   let fiveStarCount = 0;
 
+  // If the shop haven't had any ratings -> Return 0% for all
+  if (totalRatingCount === 0) {
+    return {
+      oneStarPercentage: 0,
+      twoStarPercentage: 0,
+      threeStarPercentage: 0,
+      fourStarPercentage: 0,
+      fiveStarPercentage: 0,
+    };
+  }
+
   shopRatings.forEach((rating) => {
     switch (rating.star) {
       case 1:

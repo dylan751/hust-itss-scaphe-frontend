@@ -6,6 +6,8 @@ import Layout from './components/Layout';
 import ShopDetail from './pages/ShopDetail';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   return (
@@ -17,6 +19,7 @@ const App = () => {
             <Route path="/shops/:shopId" element={<ShopDetail />} />
           </Routes>
         </Layout>
+        <ToastContainer autoClose={1000} closeOnClick />
       </div>
     </LocalizationProvider>
   );
