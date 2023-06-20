@@ -8,10 +8,12 @@ import ShopFeedback from '../../components/ShopFeedback';
 import ratingApi from '../../services/ratingApi';
 import { RatingInterface } from '../../models/rating';
 import { SelectChangeEvent } from '@mui/material';
+import cityDistrictApi from '../../services/cityDistrictApi';
 
 const ShopDetail = () => {
   const { shopId } = useParams();
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [cityDistricts, setCityDistricts] = useState<any[]>([]);
   const [shopInfo, setShopInfo] = useState<ShopInterface>({
     _id: '',
     name: '',
@@ -58,9 +60,16 @@ const ShopDetail = () => {
     setIsLoading(false);
   };
 
+  const getAllCityDistricts = async () => {
+    const res = await cityDistrictApi.getListCityDistricts();
+    const allCityDistricts = res.data;
+    setCityDistricts(allCityDistricts);
+  };
+
   useEffect(() => {
     getShopInfo();
     getShopRatings();
+    getAllCityDistricts();
   }, []);
 
   return (
@@ -69,7 +78,7 @@ const ShopDetail = () => {
         <Loading />
       ) : (
         <>
-          <ShopInfo shopInfo={shopInfo} />
+          <ShopInfo shopInfo={shopInfo} cityDistricts={cityDistricts} />
           <ShopFeedback
             shopInfo={shopInfo}
             shopRatings={shopRatings}
