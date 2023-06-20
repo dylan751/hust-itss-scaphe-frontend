@@ -74,7 +74,7 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
   return (
     <FormControl>
       <Textarea
-        placeholder="Type something here…"
+        placeholder="レビューを入力する..."
         minRows={3}
         value={content}
         onChange={(e) => handleChangeContent(e)}

@@ -1,10 +1,11 @@
 import { Button, CardMedia, Container, Grid, Typography } from '@mui/material';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ShopInterface } from '../../models/shop';
 import CallIcon from '@mui/icons-material/Call';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { trafficDatas } from '../../data/Shop/Traffic';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import cityDistrictApi from '../../services/cityDistrictApi';
 
 interface ShopInfoProps {
   shopInfo: ShopInterface;
@@ -14,6 +15,27 @@ const ShopInfo = ({ shopInfo }: ShopInfoProps) => {
   const shopTraffic = trafficDatas.find(
     (traffic) => traffic.traffic === shopInfo.traffic,
   );
+
+  const [cityDistricts, setCityDistricts] = useState<any[]>([]);
+
+  const getAllCityDistricts = async () => {
+    const res = await cityDistrictApi.getListCityDistricts();
+    console.log(res.data);
+    const allCityDistricts = res.data;
+    setCityDistricts(allCityDistricts);
+  };
+
+  // Find city, district label based on BE returned codename
+  const shopCity = cityDistricts.find(
+    (city) => city.codename === shopInfo.city,
+  );
+  const shopDistrict = shopCity.districts.find(
+    (district: any) => district.codename === shopInfo.district,
+  );
+
+  useEffect(() => {
+    getAllCityDistricts();
+  }, []);
 
   return (
     <Container sx={{ margin: '28px 28px' }}>
@@ -71,8 +93,7 @@ const ShopInfo = ({ shopInfo }: ShopInfoProps) => {
           </Typography>
           <Typography variant="h6">
             <LocationOnIcon sx={{ color: 'red', margin: '10px 12px' }} />
-            {/* Tương Mai, Hoàng Mai, Hà Nội */}
-            {`${shopInfo.district}, ${shopInfo.city}`}
+            {`${shopDistrict.name}, ${shopCity.name}`}
           </Typography>
           <Typography variant="h6">
             <CalendarMonthIcon sx={{ color: 'red', margin: '10px 12px' }} />
