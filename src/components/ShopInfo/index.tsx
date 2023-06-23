@@ -12,7 +12,6 @@ interface ShopInfoProps {
 }
 
 const ShopInfo = ({ shopInfo, cityDistricts }: ShopInfoProps) => {
-  console.log(cityDistricts);
   const shopTraffic = trafficDatas.find(
     (traffic) => traffic.traffic === shopInfo.traffic,
   );
