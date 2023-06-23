@@ -18,7 +18,7 @@ const MenuProps = {
     },
   },
 };
-import React from 'react';
+import React, { useState } from 'react';
 
 import TextareaValidator from './TextareaValidator';
 import Rating from '../Rating';
@@ -30,6 +30,11 @@ import { starDatas } from '../../data/Shop/Star';
 import { ITEM_HEIGHT, ITEM_PADDING_TOP } from '../../constants/Menu';
 import { countryDatas } from '../../data/Shop/Country';
 import { getFilteredShopRatings } from '../../utils/getFilteredShopRatings';
+
+export enum ShopTabType {
+  REVIEWS = 'reviews',
+  PHOTOS = 'photos',
+}
 
 interface ShopInfoProps {
   shopInfo: ShopInterface;
@@ -48,6 +53,15 @@ const ShopFeedback = ({
   handleChangeStar,
   handleChangeCountries,
 }: ShopInfoProps) => {
+  const [currentTab, setCurrentTab] = useState<ShopTabType>(
+    ShopTabType.REVIEWS,
+  );
+
+  const handleChangeCurrentTab = (value: ShopTabType) => {
+    console.log(value);
+    setCurrentTab(value);
+  };
+
   // Filter on FE
   const filteredShopRatings = getFilteredShopRatings(
     shopRatings,
@@ -69,6 +83,7 @@ const ShopFeedback = ({
       >
         <Link
           underline="hover"
+          onClick={() => handleChangeCurrentTab(ShopTabType.REVIEWS)}
           sx={{
             ':hover': {
               color: '#1976d2',
@@ -84,6 +99,7 @@ const ShopFeedback = ({
         </Link>
         <Link
           underline="hover"
+          onClick={() => handleChangeCurrentTab(ShopTabType.PHOTOS)}
           sx={{
             ':hover': {
               color: '#1976d2',
@@ -98,68 +114,75 @@ const ShopFeedback = ({
           フォト
         </Link>
       </Grid>
-      <Grid container spacing={2}>
-        <Grid item xs={7}>
-          <Grid>
-            <FormControl sx={{ m: '20px 20px 20px 0', width: 200 }}>
-              <InputLabel id="review-input-select-label">スター</InputLabel>
-              <Select
-                labelId="review-input-select-label"
-                id="review-input-label"
-                value={star}
-                label="日本人の評価"
-                onChange={handleChangeStar}
-                MenuProps={MenuProps}
-              >
-                <MenuItem value="" sx={{ height: '36px', opacity: '0.3' }}>
-                  全ての評価
-                </MenuItem>
-                {starDatas.map((star: string) => (
-                  <MenuItem key={star} value={star}>
-                    {star} <StarIcon sx={{ color: '#ffc200' }} />
+      {currentTab === ShopTabType.REVIEWS && (
+        <Grid container spacing={2}>
+          <Grid item xs={7}>
+            <Grid>
+              <FormControl sx={{ m: '20px 20px 20px 0', width: 200 }}>
+                <InputLabel id="review-input-select-label">スター</InputLabel>
+                <Select
+                  labelId="review-input-select-label"
+                  id="review-input-label"
+                  value={star}
+                  label="日本人の評価"
+                  onChange={handleChangeStar}
+                  MenuProps={MenuProps}
+                >
+                  <MenuItem value="" sx={{ height: '36px', opacity: '0.3' }}>
+                    全ての評価
                   </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <FormControl sx={{ m: '20px 20px 20px 0', width: 200 }}>
-              <InputLabel id="Countries-input-select-label">国</InputLabel>
-              <Select
-                labelId="Countries-input-select-label"
-                id="Countries-input"
-                multiple
-                value={countries}
-                label="国"
-                onChange={handleChangeCountries}
-                renderValue={(selected: string[]) => selected.join(', ')}
-                MenuProps={MenuProps}
-              >
-                {countryDatas.map((countryData: string) => (
-                  <MenuItem key={countryData} value={countryData}>
-                    <Checkbox checked={countries.indexOf(countryData) > -1} />
-                    <ListItemText primary={countryData} />
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+                  {starDatas.map((star: string) => (
+                    <MenuItem key={star} value={star}>
+                      {star} <StarIcon sx={{ color: '#ffc200' }} />
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <FormControl sx={{ m: '20px 20px 20px 0', width: 200 }}>
+                <InputLabel id="Countries-input-select-label">国</InputLabel>
+                <Select
+                  labelId="Countries-input-select-label"
+                  id="Countries-input"
+                  multiple
+                  value={countries}
+                  label="国"
+                  onChange={handleChangeCountries}
+                  renderValue={(selected: string[]) => selected.join(', ')}
+                  MenuProps={MenuProps}
+                >
+                  {countryDatas.map((countryData: string) => (
+                    <MenuItem key={countryData} value={countryData}>
+                      <Checkbox checked={countries.indexOf(countryData) > -1} />
+                      <ListItemText primary={countryData} />
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <TextareaValidator shopInfo={shopInfo} />
+            {filteredShopRatings.map((shopRating, index) => (
+              <Comment
+                key={index}
+                shopInfo={shopInfo}
+                shopRating={shopRating}
+              />
+            ))}
           </Grid>
-          <TextareaValidator shopInfo={shopInfo} />
-          {filteredShopRatings.map((shopRating, index) => (
-            <Comment key={index} shopInfo={shopInfo} shopRating={shopRating} />
-          ))}
+          <Grid
+            item
+            xs={4}
+            sx={{
+              margin: '36px 0px 10px 70px',
+              border: '2px solid #b6b6b6',
+              padding: '0 10px 10px 0',
+              height: '100%',
+            }}
+          >
+            <Rating shopInfo={shopInfo} shopRatings={shopRatings} />
+          </Grid>
         </Grid>
-        <Grid
-          item
-          xs={4}
-          sx={{
-            margin: '36px 0px 10px 70px',
-            border: '2px solid #b6b6b6',
-            padding: '0 10px 10px 0',
-            height: '100%',
-          }}
-        >
-          <Rating shopInfo={shopInfo} shopRatings={shopRatings} />
-        </Grid>
-      </Grid>
+      )}
+      {currentTab === ShopTabType.PHOTOS && <h1>PHOTOS</h1>}
     </>
   );
 };
