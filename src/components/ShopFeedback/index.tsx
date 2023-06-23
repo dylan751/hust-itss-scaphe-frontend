@@ -1,5 +1,6 @@
 import {
   Checkbox,
+  Container,
   FormControl,
   Grid,
   InputLabel,
@@ -30,6 +31,7 @@ import { starDatas } from '../../data/Shop/Star';
 import { ITEM_HEIGHT, ITEM_PADDING_TOP } from '../../constants/Menu';
 import { countryDatas } from '../../data/Shop/Country';
 import { getFilteredShopRatings } from '../../utils/getFilteredShopRatings';
+import { PhotoInterface } from '../../models/photo';
 
 export enum ShopTabType {
   REVIEWS = 'reviews',
@@ -53,6 +55,7 @@ const ShopFeedback = ({
   handleChangeStar,
   handleChangeCountries,
 }: ShopInfoProps) => {
+  console.log(shopInfo);
   const [currentTab, setCurrentTab] = useState<ShopTabType>(
     ShopTabType.REVIEWS,
   );
@@ -92,7 +95,9 @@ const ShopFeedback = ({
             fontWeight: 'bold',
             fontSize: '20px',
             cursor: 'pointer',
-            color: 'black',
+            color: `${
+              currentTab === ShopTabType.REVIEWS ? '#1976d2' : 'black'
+            }`,
           }}
         >
           口コミ
@@ -108,7 +113,7 @@ const ShopFeedback = ({
             fontWeight: 'bold',
             fontSize: '20px',
             cursor: 'pointer',
-            color: 'black',
+            color: `${currentTab === ShopTabType.PHOTOS ? '#1976d2' : 'black'}`,
           }}
         >
           フォト
@@ -182,7 +187,28 @@ const ShopFeedback = ({
           </Grid>
         </Grid>
       )}
-      {currentTab === ShopTabType.PHOTOS && <h1>PHOTOS</h1>}
+      {currentTab === ShopTabType.PHOTOS && (
+        <>
+          {shopInfo.photos.length > 0 ? (
+            <Grid container spacing={2} sx={{ margin: '20px auto' }}>
+              {shopInfo.photos.map((photo: PhotoInterface, index: number) => (
+                <Grid item xs={3} sm={3} md={3} key={index}>
+                  <img src={photo.photoUrl} key={index} />
+                </Grid>
+              ))}
+            </Grid>
+          ) : (
+            <Grid
+              sx={{
+                margin: '20px',
+                color: '#f44336',
+              }}
+            >
+              There is no Photo for this Shop
+            </Grid>
+          )}
+        </>
+      )}
     </>
   );
 };
