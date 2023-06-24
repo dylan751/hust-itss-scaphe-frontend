@@ -163,12 +163,12 @@ const Filter = ({
           </Select>
         </FormControl>
         <FormControl sx={{ m: '20px 20px 20px 0', width: 200 }}>
-          <InputLabel id="review-input-select-label">日本人の評価</InputLabel>
+          <InputLabel id="review-input-select-label">評価</InputLabel>
           <Select
             labelId="review-input-select-label"
             id="review-input-label"
             value={star}
-            label="日本人の評価"
+            label="評価"
             onChange={handleChangeStar}
             MenuProps={MenuProps}
           >

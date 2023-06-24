@@ -1,5 +1,5 @@
-import { Button, CardMedia, Container, Grid, Typography } from '@mui/material';
 import React from 'react';
+import { Button, CardMedia, Container, Grid, Typography } from '@mui/material';
 import { ShopInterface } from '../../models/shop';
 import CallIcon from '@mui/icons-material/Call';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -8,11 +8,20 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 interface ShopInfoProps {
   shopInfo: ShopInterface;
+  cityDistricts: any;
 }
 
-const ShopInfo = ({ shopInfo }: ShopInfoProps) => {
+const ShopInfo = ({ shopInfo, cityDistricts }: ShopInfoProps) => {
   const shopTraffic = trafficDatas.find(
     (traffic) => traffic.traffic === shopInfo.traffic,
+  );
+
+  // Find city, district label based on BE returned codename
+  const shopCity = cityDistricts.find(
+    (city: any) => city.codename === shopInfo.city,
+  );
+  const shopDistrict = shopCity?.districts.find(
+    (district: any) => district.codename === shopInfo.district,
   );
 
   return (
@@ -71,12 +80,11 @@ const ShopInfo = ({ shopInfo }: ShopInfoProps) => {
           </Typography>
           <Typography variant="h6">
             <LocationOnIcon sx={{ color: 'red', margin: '10px 12px' }} />
-            {/* Tương Mai, Hoàng Mai, Hà Nội */}
-            {`${shopInfo.district}, ${shopInfo.city}`}
+            {`${shopDistrict?.name}, ${shopCity?.name}`}
           </Typography>
           <Typography variant="h6">
             <CalendarMonthIcon sx={{ color: 'red', margin: '10px 12px' }} />
-            10:00 ~ 16:00 Thứ 2, 12/6/2023
+            8:00 ~ 22:00 Thứ 3, 20/6/2023
           </Typography>
         </Grid>
         <Grid sx={{ marginLeft: '12px' }}>
