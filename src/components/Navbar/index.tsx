@@ -29,10 +29,16 @@ const Navbar = () => {
               SCAPHE
             </Typography>
           </LinkRoute>
-          <Link sx={{ marginLeft: 'auto', fontWeight: 700, cursor: 'pointer' }}>
+          <Link
+            href="/login"
+            sx={{ marginLeft: 'auto', fontWeight: 700, cursor: 'pointer' }}
+          >
             ログイン
           </Link>
-          <Link sx={{ marginLeft: '10px', fontWeight: 700, cursor: 'pointer' }}>
+          <Link
+            href="/register"
+            sx={{ marginLeft: '10px', fontWeight: 700, cursor: 'pointer' }}
+          >
             レジスター
           </Link>
         </Toolbar>
