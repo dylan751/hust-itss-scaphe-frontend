@@ -1,4 +1,4 @@
-/* eslint-disable react/react-in-jsx-scope */
+import React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
@@ -13,19 +13,27 @@ import {
   Select,
   SelectChangeEvent,
 } from '@mui/material';
-import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export default function Register() {
+export const Register = () => {
+  const navigate = useNavigate();
+
   const handleSubmit = (event: {
     preventDefault: () => void;
     currentTarget: HTMLFormElement | undefined;
   }) => {
     event.preventDefault();
+
     const data = new FormData(event.currentTarget);
     console.log({
+      name: data.get('name'),
       email: data.get('email'),
       password: data.get('password'),
+      confirmPassword: data.get('confirm-password'),
+      country,
     });
+
+    navigate('/login');
   };
 
   const [country, setCountry] = React.useState('');
@@ -54,7 +62,7 @@ export default function Register() {
             fullWidth
             id="name"
             label="ユーザー名"
-            name="text"
+            name="name"
             autoFocus
           />
           <TextField
@@ -80,10 +88,10 @@ export default function Register() {
             margin="normal"
             required
             fullWidth
-            name="password"
+            name="confirm-password"
             label="パスワードの確認"
             type="password"
-            id="password"
+            id="confirm-password"
           />
           <FormControl sx={{ marginTop: '20px', width: '150px' }}>
             <InputLabel id="label-select-coutry">カントリー</InputLabel>
@@ -94,13 +102,12 @@ export default function Register() {
               label="country"
               onChange={handleChange}
             >
-              <MenuItem value={10}>Viet Nam</MenuItem>
-              <MenuItem value={20}>日本</MenuItem>
-              <MenuItem value={30}>英語</MenuItem>
+              <MenuItem value="ベトナム">ベトナム</MenuItem>
+              <MenuItem value="日本">日本</MenuItem>
+              <MenuItem value="英語">英語</MenuItem>
             </Select>
           </FormControl>
           <Button
-            href="/login"
             type="submit"
             fullWidth
             variant="contained"
@@ -119,4 +126,4 @@ export default function Register() {
       </Box>
     </Container>
   );
-}
+};

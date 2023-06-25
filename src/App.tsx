@@ -7,9 +7,9 @@ import ShopDetail from './pages/ShopDetail';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { ToastContainer } from 'react-toastify';
+import { Login } from './components/Login';
+import { Register } from './components/Register';
 import 'react-toastify/dist/ReactToastify.css';
-import Login from './components/Login';
-import Register from './components/Register';
 
 const App = () => {
   return (

@@ -54,13 +54,11 @@ const ShopFeedback = ({
   handleChangeStar,
   handleChangeCountries,
 }: ShopInfoProps) => {
-  console.log(shopInfo);
   const [currentTab, setCurrentTab] = useState<ShopTabType>(
     ShopTabType.REVIEWS,
   );
 
   const handleChangeCurrentTab = (value: ShopTabType) => {
-    console.log(value);
     setCurrentTab(value);
   };
 

@@ -1,4 +1,4 @@
-/* eslint-disable react/react-in-jsx-scope */
+import React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -8,18 +8,24 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import { useNavigate } from 'react-router-dom';
 
-export default function Login() {
+export const Login = () => {
+  const navigate = useNavigate();
+
   const handleSubmit = (event: {
     preventDefault: () => void;
     currentTarget: HTMLFormElement | undefined;
   }) => {
     event.preventDefault();
+
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get('email'),
       password: data.get('password'),
     });
+
+    navigate('/');
   };
 
   return (
@@ -61,7 +67,6 @@ export default function Login() {
             label="私を思い出してください"
           />
           <Button
-            href="/"
             type="submit"
             fullWidth
             variant="contained"
@@ -77,7 +82,7 @@ export default function Login() {
             </Grid>
             <Grid item>
               <Link href="/register" variant="body2">
-                {'サインアップ'}
+                サインアップ
               </Link>
             </Grid>
           </Grid>
@@ -85,4 +90,4 @@ export default function Login() {
       </Box>
     </Container>
   );
-}
+};
