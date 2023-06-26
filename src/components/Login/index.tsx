@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -10,17 +10,20 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useNavigate } from 'react-router-dom';
 import { LoginInterface } from '../../models/user';
-import { toast } from 'react-toastify';
 import userApi from '../../services/userApi';
+import { UserContext } from '../../contexts/UserContext';
+import { toast } from 'react-toastify';
 
 export const Login = () => {
   const navigate = useNavigate();
+  const { dispatch } = useContext(UserContext);
 
   const handleSubmit = async (event: {
     preventDefault: () => void;
     currentTarget: HTMLFormElement | undefined;
   }) => {
     event.preventDefault();
+    dispatch && dispatch({ type: 'LOGIN_START' });
 
     const data = new FormData(event.currentTarget);
 
@@ -31,14 +34,18 @@ export const Login = () => {
     console.log(loginData);
 
     try {
-      await userApi.login(loginData);
+      const res = await userApi.login(loginData);
 
-      // TODO: Set user data context
-
-      toast.success('Login successfully');
+      dispatch &&
+        dispatch({ type: 'LOGIN_SUCCESS', payload: res.data.data.user });
       navigate('/');
     } catch (error: any) {
       toast.error(error.response.data.message);
+      dispatch &&
+        dispatch({
+          type: 'LOGIN_FAILURE',
+          payload: error.response.data.message,
+        });
     }
   };
 

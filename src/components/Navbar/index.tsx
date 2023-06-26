@@ -1,9 +1,25 @@
-import { AppBar, Avatar, Link, Toolbar, Typography } from '@mui/material';
-import { Link as LinkRoute } from 'react-router-dom';
+import {
+  AppBar,
+  Avatar,
+  Button,
+  Link,
+  Toolbar,
+  Typography,
+} from '@mui/material';
+import { Link as LinkRoute, useNavigate } from 'react-router-dom';
 
-import React from 'react';
+import React, { useContext } from 'react';
+import { UserContext } from '../../contexts/UserContext';
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const { user, dispatch } = useContext(UserContext);
+
+  const handleLogout = () => {
+    dispatch && dispatch({ type: 'LOGOUT' });
+    navigate('/');
+  };
+
   return (
     <>
       <AppBar sx={{ background: '#ffff' }} position="static">
@@ -29,18 +45,29 @@ const Navbar = () => {
               SCAPHE
             </Typography>
           </LinkRoute>
-          <Link
-            href="/login"
-            sx={{ marginLeft: 'auto', fontWeight: 700, cursor: 'pointer' }}
-          >
-            ログイン
-          </Link>
-          <Link
-            href="/register"
-            sx={{ marginLeft: '10px', fontWeight: 700, cursor: 'pointer' }}
-          >
-            レジスター
-          </Link>
+          {user ? (
+            <Button
+              sx={{ marginLeft: 'auto', fontWeight: 700, cursor: 'pointer' }}
+              onClick={handleLogout}
+            >
+              ログアウト
+            </Button>
+          ) : (
+            <>
+              <Link
+                href="/login"
+                sx={{ marginLeft: 'auto', fontWeight: 700, cursor: 'pointer' }}
+              >
+                ログイン
+              </Link>
+              <Link
+                href="/register"
+                sx={{ marginLeft: '10px', fontWeight: 700, cursor: 'pointer' }}
+              >
+                レジスター
+              </Link>
+            </>
+          )}
         </Toolbar>
       </AppBar>
     </>
