@@ -1,4 +1,5 @@
 import {
+  Button,
   Checkbox,
   FormControl,
   Grid,
@@ -18,7 +19,7 @@ const MenuProps = {
     },
   },
 };
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 
 import TextareaValidator from './TextareaValidator';
 import Rating from '../Rating';
@@ -31,6 +32,7 @@ import { ITEM_HEIGHT, ITEM_PADDING_TOP } from '../../constants/Menu';
 import { countryDatas } from '../../data/Shop/Country';
 import { getFilteredShopRatings } from '../../utils/getFilteredShopRatings';
 import { PhotoInterface } from '../../models/photo';
+import { UserContext } from '../../contexts/UserContext';
 
 export enum ShopTabType {
   REVIEWS = 'reviews',
@@ -54,6 +56,7 @@ const ShopFeedback = ({
   handleChangeStar,
   handleChangeCountries,
 }: ShopInfoProps) => {
+  const { user } = useContext(UserContext);
   const [currentTab, setCurrentTab] = useState<ShopTabType>(
     ShopTabType.REVIEWS,
   );
@@ -161,7 +164,15 @@ const ShopFeedback = ({
                 </Select>
               </FormControl>
             </Grid>
-            <TextareaValidator shopInfo={shopInfo} />
+            {user ? (
+              <TextareaValidator shopInfo={shopInfo} />
+            ) : (
+              <Button
+                sx={{ margin: '0 auto', width: '100%', fontSize: '24px' }}
+              >
+                レビューを残すにはログインしてください
+              </Button>
+            )}
             {filteredShopRatings.map((shopRating, index) => (
               <Comment
                 key={index}
