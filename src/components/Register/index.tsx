@@ -14,26 +14,53 @@ import {
   SelectChangeEvent,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import userApi from '../../services/userApi';
+import { CreateOrUpdateUserRequestInterface } from '../../models/user';
+import { toast } from 'react-toastify';
 
 export const Register = () => {
   const navigate = useNavigate();
 
-  const handleSubmit = (event: {
+  const handleSubmit = async (event: {
     preventDefault: () => void;
     currentTarget: HTMLFormElement | undefined;
   }) => {
     event.preventDefault();
 
     const data = new FormData(event.currentTarget);
-    console.log({
-      name: data.get('name'),
-      email: data.get('email'),
-      password: data.get('password'),
-      confirmPassword: data.get('confirm-password'),
-      country,
-    });
 
-    navigate('/login');
+    const name = data.get('name') as string;
+    const email = data.get('email') as string;
+    const password = data.get('password') as string;
+    const confirmPassword = data.get('confirm-password') as string;
+    const avatar = 'https://picsum.photos/200/200'; // TODO: Add choose avatar function
+
+    if (!name || !email || !password || !confirmPassword || !country) {
+      toast.error('Please fill all the data');
+      return;
+    }
+
+    if (confirmPassword !== password) {
+      toast.error("Confirm password doesn't match");
+      return;
+    }
+
+    const registerData: CreateOrUpdateUserRequestInterface = {
+      name,
+      email,
+      password,
+      country,
+      avatar,
+    };
+    console.log(registerData);
+
+    try {
+      await userApi.createUser(registerData);
+      toast.success('Register successfully');
+      navigate('/login');
+    } catch (error: any) {
+      toast.error(error.response.data.message);
+    }
   };
 
   const [country, setCountry] = React.useState('');
