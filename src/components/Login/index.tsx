@@ -9,23 +9,37 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useNavigate } from 'react-router-dom';
+import { LoginInterface } from '../../models/user';
+import { toast } from 'react-toastify';
+import userApi from '../../services/userApi';
 
 export const Login = () => {
   const navigate = useNavigate();
 
-  const handleSubmit = (event: {
+  const handleSubmit = async (event: {
     preventDefault: () => void;
     currentTarget: HTMLFormElement | undefined;
   }) => {
     event.preventDefault();
 
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
 
-    navigate('/');
+    const email = data.get('email') as string;
+    const password = data.get('password') as string;
+
+    const loginData: LoginInterface = { email, password };
+    console.log(loginData);
+
+    try {
+      await userApi.login(loginData);
+
+      // TODO: Set user data context
+
+      toast.success('Login successfully');
+      navigate('/');
+    } catch (error: any) {
+      toast.error(error.response.data.message);
+    }
   };
 
   return (
