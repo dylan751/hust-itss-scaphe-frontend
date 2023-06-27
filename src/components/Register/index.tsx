@@ -52,7 +52,6 @@ export const Register = () => {
       country,
       avatar,
     };
-    console.log(registerData);
 
     try {
       await userApi.createUser(registerData);
