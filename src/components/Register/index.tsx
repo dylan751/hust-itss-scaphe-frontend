@@ -36,12 +36,12 @@ export const Register = () => {
     const avatar = 'https://picsum.photos/200/200'; // TODO: Add choose avatar function
 
     if (!name || !email || !password || !confirmPassword || !country) {
-      toast.error('Please fill all the data');
+      toast.error('全部のデータを入力してください！');
       return;
     }
 
     if (confirmPassword !== password) {
-      toast.error("Confirm password doesn't match");
+      toast.error("パスワードの確認は間違います！");
       return;
     }
 
@@ -55,7 +55,7 @@ export const Register = () => {
 
     try {
       await userApi.createUser(registerData);
-      toast.success('Register successfully');
+      toast.success('レジスターできました');
       navigate('/login');
     } catch (error: any) {
       toast.error(error.response.data.message);
