@@ -22,14 +22,14 @@ const UserReducer = (state: any, action: any) => {
     case 'LOGIN_START':
       return { user: null, loading: true, error: null };
     case 'LOGIN_SUCCESS': {
-      toast.success('Login Succeeded', { toastId: 'LOGIN_SUCCESS' });
+      toast.success('ログインできました', { toastId: 'LOGIN_SUCCESS' });
       return { user: action.payload, loading: false, error: null };
     }
     case 'LOGIN_FAILURE': {
       return { user: null, loading: false, error: action.payload };
     }
     case 'LOGOUT': {
-      toast.success('Logout Succeeded', { toastId: 'LOGOUT' });
+      toast.success('ログアウトできました', { toastId: 'LOGOUT' });
       return { user: null, loading: false, error: null };
     }
     default:

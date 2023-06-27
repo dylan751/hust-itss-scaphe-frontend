@@ -1,7 +1,6 @@
 import {
   AppBar,
   Avatar,
-  Button,
   Link,
   Toolbar,
   Typography,
@@ -46,12 +45,13 @@ const Navbar = () => {
             </Typography>
           </LinkRoute>
           {user ? (
-            <Button
+            <Link
+              href="/login"
               sx={{ marginLeft: 'auto', fontWeight: 700, cursor: 'pointer' }}
               onClick={handleLogout}
             >
               ログアウト
-            </Button>
+            </Link>
           ) : (
             <>
               <Link

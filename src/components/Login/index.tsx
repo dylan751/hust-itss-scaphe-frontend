@@ -31,7 +31,6 @@ export const Login = () => {
     const password = data.get('password') as string;
 
     const loginData: LoginInterface = { email, password };
-    console.log(loginData);
 
     try {
       const res = await userApi.login(loginData);
