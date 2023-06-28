@@ -1,4 +1,5 @@
 import { CategoryInterface } from './category';
+import { OpenHourInterface } from './openHour';
 import { PhotoInterface } from './photo';
 import { RatingInterface } from './rating';
 
@@ -17,4 +18,5 @@ export interface ShopInterface {
   ratings: RatingInterface[];
   categories: CategoryInterface[];
   photos: PhotoInterface[];
+  openHours: OpenHourInterface[];
 }

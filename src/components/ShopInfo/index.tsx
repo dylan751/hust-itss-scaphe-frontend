@@ -7,6 +7,7 @@ import { trafficDatas } from '../../data/Shop/Traffic';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { RatingInterface } from '../../models/rating';
 import { shouldShowCategory } from '../../utils/shouldShowCategory';
+import { calculateOpenHours } from '../../utils/calculateOpenHours';
 
 interface ShopInfoProps {
   shopInfo: ShopInterface;
@@ -26,7 +27,9 @@ const ShopInfo = ({ shopInfo, shopRatings, cityDistricts }: ShopInfoProps) => {
   const shopDistrict = shopCity?.districts.find(
     (district: any) => district.codename === shopInfo.district,
   );
+
   const shouldShowCategories = shouldShowCategory(shopInfo, shopRatings);
+  const openHour = calculateOpenHours(shopInfo);
 
   return (
     <Container sx={{ margin: '28px 28px' }}>
@@ -88,7 +91,7 @@ const ShopInfo = ({ shopInfo, shopRatings, cityDistricts }: ShopInfoProps) => {
           </Typography>
           <Typography variant="h6">
             <CalendarMonthIcon sx={{ color: 'red', margin: '10px 12px' }} />
-            8:00 ~ 22:00 Thứ 3, 20/6/2023
+            {openHour ? openHour : '8:00 ~ 22:00 Thứ 3, 20/6/2023'}
           </Typography>
         </Grid>
         <Grid sx={{ marginLeft: '12px' }}>

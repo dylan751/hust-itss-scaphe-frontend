@@ -25,6 +25,7 @@ const ShopDetail = () => {
     ratings: [],
     categories: [],
     photos: [],
+    openHours: [],
   });
   const [shopRatings, setShopRatings] = useState<RatingInterface[]>([]);
 
