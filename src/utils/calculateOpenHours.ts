@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 import { ShopInterface } from '../models/shop';
 import { OpenHourInterface } from '../models/openHour';
 
-export const calculateOpenHours = (shopInfo: ShopInterface) => {
+export const calculateOpenHours = (shopInfo: ShopInterface): string => {
   const today = new Date();
   const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
 
@@ -65,4 +65,5 @@ export const calculateOpenHours = (shopInfo: ShopInterface) => {
 
     return date;
   }
+  return '';
 };
