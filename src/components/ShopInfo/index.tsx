@@ -5,13 +5,16 @@ import CallIcon from '@mui/icons-material/Call';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { trafficDatas } from '../../data/Shop/Traffic';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import { RatingInterface } from '../../models/rating';
+import { shouldShowCategory } from '../../utils/shouldShowCategory';
 
 interface ShopInfoProps {
   shopInfo: ShopInterface;
+  shopRatings: RatingInterface[];
   cityDistricts: any;
 }
 
-const ShopInfo = ({ shopInfo, cityDistricts }: ShopInfoProps) => {
+const ShopInfo = ({ shopInfo, shopRatings, cityDistricts }: ShopInfoProps) => {
   const shopTraffic = trafficDatas.find(
     (traffic) => traffic.traffic === shopInfo.traffic,
   );
@@ -23,6 +26,7 @@ const ShopInfo = ({ shopInfo, cityDistricts }: ShopInfoProps) => {
   const shopDistrict = shopCity?.districts.find(
     (district: any) => district.codename === shopInfo.district,
   );
+  const shouldShowCategories = shouldShowCategory(shopInfo, shopRatings);
 
   return (
     <Container sx={{ margin: '28px 28px' }}>
@@ -30,7 +34,7 @@ const ShopInfo = ({ shopInfo, cityDistricts }: ShopInfoProps) => {
         {shopInfo.name}
       </Typography>
       <Grid>
-        {shopInfo.categories.map((category) => (
+        {shouldShowCategories.map((category) => (
           <Button
             sx={{
               ':hover': {
@@ -46,9 +50,9 @@ const ShopInfo = ({ shopInfo, cityDistricts }: ShopInfoProps) => {
               borderRadius: '8px',
             }}
             variant="contained"
-            key={category.category}
+            key={category}
           >
-            {category.category}
+            {category}
           </Button>
         ))}
       </Grid>

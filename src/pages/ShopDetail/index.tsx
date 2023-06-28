@@ -79,7 +79,11 @@ const ShopDetail = () => {
         <Loading />
       ) : (
         <>
-          <ShopInfo shopInfo={shopInfo} cityDistricts={cityDistricts} />
+          <ShopInfo
+            shopInfo={shopInfo}
+            shopRatings={shopRatings}
+            cityDistricts={cityDistricts}
+          />
           <ShopFeedback
             shopInfo={shopInfo}
             shopRatings={shopRatings}
