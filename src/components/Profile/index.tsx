@@ -17,12 +17,14 @@ import StarIcon from '@mui/icons-material/Star';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import { UserInterface } from '../../models/user';
+import { RatingInterface } from '../../models/rating';
 
 export interface ProfileProps {
   user: UserInterface;
+  userRatings: RatingInterface[];
 }
 
-const Profile = ({ user }: ProfileProps) => {
+const Profile = ({ user, userRatings }: ProfileProps) => {
   return (
     <Container>
       <Grid
@@ -122,38 +124,42 @@ const Profile = ({ user }: ProfileProps) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow>
-              <TableCell align="center" sx={{ width: '10%' }}>
-                1
-              </TableCell>
-              <TableCell align="center" sx={{ width: '20%' }}>
-                Viet Cafee
-              </TableCell>
-              <TableCell align="center" sx={{ width: '20%' }}>
-                <StarIcon sx={{ color: '#ff9800', fontSize: '32px' }} />
-                <StarIcon sx={{ color: '#ff9800', fontSize: '32px' }} />
-                <StarIcon sx={{ color: '#ff9800', fontSize: '32px' }} />
-                <StarHalfIcon sx={{ color: '#ff9800', fontSize: '32px' }} />
-                <StarOutlineIcon sx={{ color: '#ff9800', fontSize: '32px' }} />
-              </TableCell>
-              <TableCell align="center">Cafe rat la okela </TableCell>
-              <TableCell align="center" sx={{ width: '10%' }}>
-                <Button
-                  variant="contained"
-                  sx={{
-                    ':hover': {
-                      backgroundColor: '#ed4343',
-                    },
-                    color: 'black',
-                    backgroundColor: '#f45959',
-                    fontSize: '12px',
-                    fontWeight: '600',
-                  }}
-                >
-                  削除
-                </Button>
-              </TableCell>
-            </TableRow>
+            {userRatings.map((userRating, index) => (
+              <TableRow key={index}>
+                <TableCell align="center" sx={{ width: '10%' }}>
+                  {index + 1}
+                </TableCell>
+                <TableCell align="center" sx={{ width: '20%' }}>
+                  {userRating.shop[0].name}
+                </TableCell>
+                <TableCell align="center" sx={{ width: '20%' }}>
+                  <StarIcon sx={{ color: '#ff9800', fontSize: '32px' }} />
+                  <StarIcon sx={{ color: '#ff9800', fontSize: '32px' }} />
+                  <StarIcon sx={{ color: '#ff9800', fontSize: '32px' }} />
+                  <StarHalfIcon sx={{ color: '#ff9800', fontSize: '32px' }} />
+                  <StarOutlineIcon
+                    sx={{ color: '#ff9800', fontSize: '32px' }}
+                  />
+                </TableCell>
+                <TableCell align="center"> {userRating.content}</TableCell>
+                <TableCell align="center" sx={{ width: '10%' }}>
+                  <Button
+                    variant="contained"
+                    sx={{
+                      ':hover': {
+                        backgroundColor: '#ed4343',
+                      },
+                      color: 'black',
+                      backgroundColor: '#f45959',
+                      fontSize: '12px',
+                      fontWeight: '600',
+                    }}
+                  >
+                    削除
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
