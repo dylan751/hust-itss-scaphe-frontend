@@ -1,6 +1,5 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import Profile from '../../components/Profile';
-import { useParams } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
 
 const ProfilePage = () => {

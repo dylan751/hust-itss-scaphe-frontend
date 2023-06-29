@@ -10,7 +10,7 @@ import { ToastContainer } from 'react-toastify';
 import { Login } from './components/Login';
 import { Register } from './components/Register';
 import 'react-toastify/dist/ReactToastify.css';
-import ProfilePage from './pages/Profile';
+import ProfilePage from './pages/ProfilePage';
 
 const App = () => {
   return (
