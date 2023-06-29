@@ -10,7 +10,7 @@ import { ToastContainer } from 'react-toastify';
 import { Login } from './components/Login';
 import { Register } from './components/Register';
 import 'react-toastify/dist/ReactToastify.css';
-import Profile from './components/Profile';
+import ProfilePage from './pages/Profile';
 
 const App = () => {
   return (
@@ -22,7 +22,7 @@ const App = () => {
             <Route path="/shops/:shopId" element={<ShopDetail />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={<ProfilePage />} />
           </Routes>
         </Layout>
         <ToastContainer autoClose={1000} closeOnClick />

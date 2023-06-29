@@ -17,7 +17,7 @@ import StarIcon from '@mui/icons-material/Star';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 
-const index = () => {
+const Profile = () => {
   return (
     <Container>
       <Grid
@@ -156,4 +156,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Profile;
