@@ -1,4 +1,11 @@
-import { AppBar, Avatar, Link, Toolbar, Typography } from '@mui/material';
+import {
+  AppBar,
+  Avatar,
+  Button,
+  Link,
+  Toolbar,
+  Typography,
+} from '@mui/material';
 import { Link as LinkRoute, useNavigate } from 'react-router-dom';
 
 import React, { useContext } from 'react';
@@ -10,7 +17,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     dispatch && dispatch({ type: 'LOGOUT' });
-    navigate('/');
+    navigate('/login');
   };
 
   return (
@@ -39,13 +46,29 @@ const Navbar = () => {
             </Typography>
           </LinkRoute>
           {user ? (
-            <Link
-              href="/login"
-              sx={{ marginLeft: 'auto', fontWeight: 700, cursor: 'pointer' }}
-              onClick={handleLogout}
-            >
-              ログアウト
-            </Link>
+            <>
+              <Button
+                href="/profile"
+                sx={{
+                  marginLeft: 'auto',
+                  fontWeight: 700,
+                  fontSize: '16px',
+                  cursor: 'pointer',
+                }}
+              >
+                プロフィール
+              </Button>
+              <Button
+                sx={{
+                  fontWeight: 700,
+                  fontSize: '16px',
+                  cursor: 'pointer',
+                }}
+                onClick={handleLogout}
+              >
+                ログアウト
+              </Button>
+            </>
           ) : (
             <>
               <Link
