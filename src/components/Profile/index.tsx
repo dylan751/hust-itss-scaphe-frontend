@@ -16,8 +16,13 @@ import BorderColorIcon from '@mui/icons-material/BorderColor';
 import StarIcon from '@mui/icons-material/Star';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
+import { UserInterface } from '../../models/user';
 
-const Profile = () => {
+export interface ProfileProps {
+  user: UserInterface;
+}
+
+const Profile = ({ user }: ProfileProps) => {
   return (
     <Container>
       <Grid
@@ -29,7 +34,7 @@ const Profile = () => {
         <Grid>
           <Avatar
             alt="avatar"
-            src="./assets/images/shop.png"
+            src={user.avatar}
             sx={{ width: 250, height: 250 }}
           />
         </Grid>
@@ -44,7 +49,7 @@ const Profile = () => {
               }}
               variant="h5"
             >
-              Mai Dao Tuan Thanh
+              {user.name}
             </Typography>
             <BorderColorIcon sx={{ fontSize: '32px' }} />
           </Grid>
@@ -53,12 +58,12 @@ const Profile = () => {
             <Typography
               sx={{ marginTop: '10px', fontSize: '20px', fontWeight: '500' }}
             >
-              メール: maithanh0131@gmail.com
+              メール: {user.email}
             </Typography>
             <Typography
               sx={{ marginTop: '10px', fontSize: '20px', fontWeight: '500' }}
             >
-              国名: ベトナム
+              国名: {user.country}
             </Typography>
             <Typography
               sx={{
