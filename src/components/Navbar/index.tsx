@@ -1,6 +1,7 @@
 import {
   AppBar,
   Avatar,
+  Button,
   Link,
   Toolbar,
   Typography,
@@ -16,7 +17,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     dispatch && dispatch({ type: 'LOGOUT' });
-    navigate('/');
+    navigate('/login');
   };
 
   return (
@@ -45,13 +46,29 @@ const Navbar = () => {
             </Typography>
           </LinkRoute>
           {user ? (
-            <Link
-              href="/login"
-              sx={{ marginLeft: 'auto', fontWeight: 700, cursor: 'pointer' }}
-              onClick={handleLogout}
-            >
-              ログアウト
-            </Link>
+            <>
+              <Button
+                href="/profile"
+                sx={{
+                  marginLeft: 'auto',
+                  fontWeight: 700,
+                  fontSize: '16px',
+                  cursor: 'pointer',
+                }}
+              >
+                プロフィール
+              </Button>
+              <Button
+                sx={{
+                  fontWeight: 700,
+                  fontSize: '16px',
+                  cursor: 'pointer',
+                }}
+                onClick={handleLogout}
+              >
+                ログアウト
+              </Button>
+            </>
           ) : (
             <>
               <Link
