@@ -41,7 +41,7 @@ export const Register = () => {
     }
 
     if (confirmPassword !== password) {
-      toast.error("パスワードの確認は間違います！");
+      toast.error('パスワードの確認は間違います！');
       return;
     }
 

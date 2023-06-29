@@ -1,10 +1,4 @@
-import {
-  AppBar,
-  Avatar,
-  Link,
-  Toolbar,
-  Typography,
-} from '@mui/material';
+import { AppBar, Avatar, Link, Toolbar, Typography } from '@mui/material';
 import { Link as LinkRoute, useNavigate } from 'react-router-dom';
 
 import React, { useContext } from 'react';
