@@ -21,9 +21,10 @@ import { RatingInterface } from '../../models/rating';
 export interface ProfileProps {
   user: UserInterface;
   userRatings: RatingInterface[];
+  handleDeleteRating: (ratingId: string) => void;
 }
 
-const Profile = ({ user, userRatings }: ProfileProps) => {
+const Profile = ({ user, userRatings, handleDeleteRating }: ProfileProps) => {
   return (
     <Container>
       <Grid
@@ -159,6 +160,7 @@ const Profile = ({ user, userRatings }: ProfileProps) => {
                       fontSize: '12px',
                       fontWeight: '600',
                     }}
+                    onClick={() => handleDeleteRating(userRating._id)}
                   >
                     削除
                   </Button>
