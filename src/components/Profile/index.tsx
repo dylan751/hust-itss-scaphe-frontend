@@ -14,7 +14,6 @@ import {
 import React from 'react';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import StarIcon from '@mui/icons-material/Star';
-import StarHalfIcon from '@mui/icons-material/StarHalf';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import { UserInterface } from '../../models/user';
 import { RatingInterface } from '../../models/rating';
@@ -133,13 +132,19 @@ const Profile = ({ user, userRatings }: ProfileProps) => {
                   {userRating.shop[0].name}
                 </TableCell>
                 <TableCell align="center" sx={{ width: '20%' }}>
-                  <StarIcon sx={{ color: '#ff9800', fontSize: '32px' }} />
-                  <StarIcon sx={{ color: '#ff9800', fontSize: '32px' }} />
-                  <StarIcon sx={{ color: '#ff9800', fontSize: '32px' }} />
-                  <StarHalfIcon sx={{ color: '#ff9800', fontSize: '32px' }} />
-                  <StarOutlineIcon
-                    sx={{ color: '#ff9800', fontSize: '32px' }}
-                  />
+                  {Math.floor(userRating.star)}
+                  {[...new Array(userRating.star)].map((arr, index) => (
+                    <StarIcon
+                      sx={{ color: '#ff9800', fontSize: '32px' }}
+                      key={index}
+                    />
+                  ))}
+                  {[...new Array(5 - userRating.star)].map((arr, index) => (
+                    <StarOutlineIcon
+                      sx={{ color: '#ff9800', fontSize: '32px' }}
+                      key={index}
+                    />
+                  ))}
                 </TableCell>
                 <TableCell align="center"> {userRating.content}</TableCell>
                 <TableCell align="center" sx={{ width: '10%' }}>
