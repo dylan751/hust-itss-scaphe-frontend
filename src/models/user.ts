@@ -8,11 +8,11 @@ export interface UserInterface {
 }
 
 export interface CreateOrUpdateUserRequestInterface {
-  email: string;
-  password: string;
-  name: string;
-  country: string;
-  avatar: string;
+  email?: string;
+  password?: string;
+  name?: string;
+  country?: string;
+  avatar?: string;
 }
 
 export interface LoginInterface {
