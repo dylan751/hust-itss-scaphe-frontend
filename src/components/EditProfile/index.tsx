@@ -12,6 +12,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  SelectChangeEvent,
   TextField,
 } from '@mui/material';
 import { countryDatas } from '../../data/Shop/Country';
@@ -24,7 +25,7 @@ interface FadeProps {
   onClick?: any;
   onEnter?: (node: HTMLElement, isAppearing: boolean) => void;
   onExited?: (node: HTMLElement, isAppearing: boolean) => void;
-  ownerState?: any;
+  ownerstate?: any;
 }
 
 enum styleEnum {
@@ -75,6 +76,12 @@ export const EditProfile = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  const [country, setCountry] = React.useState('');
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setCountry(event.target.value as string);
+  };
+
   const handleSubmit = async (event: {
     preventDefault: () => void;
     currentTarget: HTMLFormElement | undefined;
@@ -87,7 +94,6 @@ export const EditProfile = () => {
     const email = data.get('email') as string;
     const password = data.get('password') as string;
     const confirmPassword = data.get('confirm-password') as string;
-    const country = data.get('country') as string;
     const avatar = 'https://picsum.photos/200/200'; // TODO: Add choose avatar function
 
     if (!name || !email || !password || !confirmPassword || !country) {
@@ -189,8 +195,9 @@ export const EditProfile = () => {
                 <Select
                   labelId="select-country"
                   id="select-country"
+                  value={country}
                   label="country"
-                  name="country"
+                  onChange={handleChange}
                 >
                   {countryDatas.map((country, index) => (
                     <MenuItem value={country} key={index}>
