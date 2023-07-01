@@ -14,6 +14,9 @@ import {
   Select,
   TextField,
 } from '@mui/material';
+import { countryDatas } from '../../data/Shop/Country';
+import { toast } from 'react-toastify';
+import { CreateOrUpdateUserRequestInterface } from '../../models/user';
 
 interface FadeProps {
   children: React.ReactElement;
@@ -22,6 +25,10 @@ interface FadeProps {
   onEnter?: (node: HTMLElement, isAppearing: boolean) => void;
   onExited?: (node: HTMLElement, isAppearing: boolean) => void;
   ownerState?: any;
+}
+
+enum styleEnum {
+  ABSOLUTE = 'absolute',
 }
 
 const Fade = React.forwardRef<HTMLDivElement, FadeProps>(function Fade(
@@ -52,8 +59,7 @@ const Fade = React.forwardRef<HTMLDivElement, FadeProps>(function Fade(
 });
 
 const style = {
-  // eslint-disable-next-line @typescript-eslint/prefer-as-const
-  position: 'absolute' as 'absolute',
+  position: 'absolute' as styleEnum.ABSOLUTE,
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
@@ -64,10 +70,53 @@ const style = {
   p: 4,
 };
 
-export default function EditProfile() {
+export const EditProfile = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const handleSubmit = async (event: {
+    preventDefault: () => void;
+    currentTarget: HTMLFormElement | undefined;
+  }) => {
+    event.preventDefault();
+
+    const data = new FormData(event.currentTarget);
+
+    const name = data.get('name') as string;
+    const email = data.get('email') as string;
+    const password = data.get('password') as string;
+    const confirmPassword = data.get('confirm-password') as string;
+    const country = data.get('country') as string;
+    const avatar = 'https://picsum.photos/200/200'; // TODO: Add choose avatar function
+
+    if (!name || !email || !password || !confirmPassword || !country) {
+      toast.error('全部のデータを入力してください！');
+      return;
+    }
+
+    if (confirmPassword !== password) {
+      toast.error('パスワードの確認は間違います！');
+      return;
+    }
+
+    const updateData: CreateOrUpdateUserRequestInterface = {
+      name,
+      email,
+      password,
+      country,
+      avatar,
+    };
+    console.log(updateData);
+
+    // try {
+    //   await userApi.createUser(updateData);
+    //   toast.success('レジスターできました');
+    //   navigate('/login');
+    // } catch (error: any) {
+    //   toast.error(error.response.data.message);
+    // }
+  };
 
   return (
     <div>
@@ -97,7 +146,7 @@ export default function EditProfile() {
             >
               編集
             </Typography>
-            <Box component="form" sx={{ mt: 1 }}>
+            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required
@@ -141,10 +190,13 @@ export default function EditProfile() {
                   labelId="select-country"
                   id="select-country"
                   label="country"
+                  name="country"
                 >
-                  <MenuItem value="ベトナム">ベトナム</MenuItem>
-                  <MenuItem value="日本">日本</MenuItem>
-                  <MenuItem value="英語">英語</MenuItem>
+                  {countryDatas.map((country, index) => (
+                    <MenuItem value={country} key={index}>
+                      {country}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
               <Grid sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
@@ -165,7 +217,7 @@ export default function EditProfile() {
                   セーブ
                 </Button>
                 <Button
-                  type="submit"
+                  onClick={handleClose}
                   variant="contained"
                   sx={{
                     ':hover': {
@@ -187,4 +239,4 @@ export default function EditProfile() {
       </Modal>
     </div>
   );
-}
+};

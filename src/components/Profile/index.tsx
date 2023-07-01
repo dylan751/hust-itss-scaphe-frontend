@@ -16,7 +16,7 @@ import StarIcon from '@mui/icons-material/Star';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import { UserInterface } from '../../models/user';
 import { RatingInterface } from '../../models/rating';
-import EditProfile from '../EditProfile';
+import { EditProfile } from '../EditProfile';
 
 export interface ProfileProps {
   user: UserInterface;
@@ -54,7 +54,6 @@ const Profile = ({ user, userRatings, handleDeleteRating }: ProfileProps) => {
               {user.name}
             </Typography>
             <EditProfile />
-            {/* <BorderColorIcon sx={{ fontSize: '32px' }} /> */}
           </Grid>
           <Typography sx={{ borderBottom: '2px solid black' }} />
           <Grid sx={{ marginTop: '20px', fontSize: '20px' }}>
