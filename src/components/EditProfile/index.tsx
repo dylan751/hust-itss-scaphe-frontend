@@ -17,7 +17,11 @@ import {
 } from '@mui/material';
 import { countryDatas } from '../../data/Shop/Country';
 import { toast } from 'react-toastify';
-import { CreateOrUpdateUserRequestInterface } from '../../models/user';
+import {
+  CreateOrUpdateUserRequestInterface,
+  UserInterface,
+} from '../../models/user';
+import userApi from '../../services/userApi';
 
 interface FadeProps {
   children: React.ReactElement;
@@ -71,7 +75,11 @@ const style = {
   p: 4,
 };
 
-export const EditProfile = () => {
+export interface EditProfileProps {
+  user: UserInterface;
+}
+
+export const EditProfile = ({ user }: EditProfileProps) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -91,12 +99,11 @@ export const EditProfile = () => {
     const data = new FormData(event.currentTarget);
 
     const name = data.get('name') as string;
-    const email = data.get('email') as string;
     const password = data.get('password') as string;
     const confirmPassword = data.get('confirm-password') as string;
     const avatar = 'https://picsum.photos/200/200'; // TODO: Add choose avatar function
 
-    if (!name || !email || !password || !confirmPassword || !country) {
+    if (!name || !password || !confirmPassword || !country) {
       toast.error('全部のデータを入力してください！');
       return;
     }
@@ -108,20 +115,31 @@ export const EditProfile = () => {
 
     const updateData: CreateOrUpdateUserRequestInterface = {
       name,
-      email,
       password,
       country,
       avatar,
     };
-    console.log(updateData);
 
-    // try {
-    //   await userApi.createUser(updateData);
-    //   toast.success('レジスターできました');
-    //   navigate('/login');
-    // } catch (error: any) {
-    //   toast.error(error.response.data.message);
-    // }
+    try {
+      await userApi.updateUser(user._id, updateData);
+
+      // Set updated user to local storage
+      const updatedUser: UserInterface = {
+        _id: user._id,
+        email: user.email,
+        password: updateData.password,
+        name: updateData.name as string,
+        country: updateData.country as string,
+        avatar: updateData.avatar as string,
+      };
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+
+      toast.success('更新できました');
+      location.reload();
+      handleClose();
+    } catch (error: any) {
+      toast.error(error.response.data.message);
+    }
   };
 
   return (
@@ -160,16 +178,6 @@ export const EditProfile = () => {
                 id="name"
                 label="ユーザー名"
                 name="name"
-                autoFocus
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="メール"
-                name="email"
-                autoComplete="email"
                 autoFocus
               />
               <TextField

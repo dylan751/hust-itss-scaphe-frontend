@@ -53,7 +53,7 @@ const Profile = ({ user, userRatings, handleDeleteRating }: ProfileProps) => {
             >
               {user.name}
             </Typography>
-            <EditProfile />
+            <EditProfile user={user} />
           </Grid>
           <Typography sx={{ borderBottom: '2px solid black' }} />
           <Grid sx={{ marginTop: '20px', fontSize: '20px' }}>
