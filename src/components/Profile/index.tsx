@@ -91,83 +91,116 @@ const Profile = ({ user, userRatings, handleDeleteRating }: ProfileProps) => {
       </Typography>
       <TableContainer>
         <Table aria-label="simple table" stickyHeader>
-          <TableHead>
-            <TableRow>
-              <TableCell
-                sx={{ fontSize: '20px', fontWeight: '600', color: '#0480e2' }}
-                align="center"
-              >
-                ID
-              </TableCell>
-              <TableCell
-                sx={{ fontSize: '20px', fontWeight: '600', color: '#0480e2' }}
-                align="center"
-              >
-                ショップ
-              </TableCell>
-              <TableCell
-                sx={{ fontSize: '20px', fontWeight: '600', color: '#0480e2' }}
-                align="center"
-              >
-                スター
-              </TableCell>
-              <TableCell
-                sx={{ fontSize: '20px', fontWeight: '600', color: '#0480e2' }}
-                align="center"
-              >
-                コンテンツ
-              </TableCell>
-              <TableCell
-                sx={{ fontSize: '20px', fontWeight: '600', color: '#0480e2' }}
-                align="center"
-              ></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {userRatings.map((userRating, index) => (
-              <TableRow key={index}>
-                <TableCell align="center" sx={{ width: '10%' }}>
-                  {index + 1}
-                </TableCell>
-                <TableCell align="center" sx={{ width: '20%' }}>
-                  {userRating.shop[0].name}
-                </TableCell>
-                <TableCell align="center" sx={{ width: '20%' }}>
-                  {Math.floor(userRating.star)}
-                  {[...new Array(userRating.star)].map((arr, index) => (
-                    <StarIcon
-                      sx={{ color: '#ff9800', fontSize: '32px' }}
-                      key={index}
-                    />
-                  ))}
-                  {[...new Array(5 - userRating.star)].map((arr, index) => (
-                    <StarOutlineIcon
-                      sx={{ color: '#ff9800', fontSize: '32px' }}
-                      key={index}
-                    />
-                  ))}
-                </TableCell>
-                <TableCell align="center"> {userRating.content}</TableCell>
-                <TableCell align="center" sx={{ width: '10%' }}>
-                  <Button
-                    variant="contained"
+          {userRatings.length === 0 ? (
+            <Grid
+              sx={{
+                margin: '20px 0',
+                color: '#f44336',
+              }}
+            >
+              レビューがありません
+            </Grid>
+          ) : (
+            <>
+              <TableHead>
+                <TableRow>
+                  <TableCell
                     sx={{
-                      ':hover': {
-                        backgroundColor: '#ed4343',
-                      },
-                      color: 'black',
-                      backgroundColor: '#f45959',
-                      fontSize: '12px',
+                      fontSize: '20px',
                       fontWeight: '600',
+                      color: '#0480e2',
                     }}
-                    onClick={() => handleDeleteRating(userRating._id)}
+                    align="center"
                   >
-                    削除
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
+                    ID
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontSize: '20px',
+                      fontWeight: '600',
+                      color: '#0480e2',
+                    }}
+                    align="center"
+                  >
+                    ショップ
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontSize: '20px',
+                      fontWeight: '600',
+                      color: '#0480e2',
+                    }}
+                    align="center"
+                  >
+                    スター
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontSize: '20px',
+                      fontWeight: '600',
+                      color: '#0480e2',
+                    }}
+                    align="center"
+                  >
+                    コンテンツ
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      fontSize: '20px',
+                      fontWeight: '600',
+                      color: '#0480e2',
+                    }}
+                    align="center"
+                  ></TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {userRatings.map((userRating, index) => (
+                  <TableRow key={index}>
+                    <TableCell align="center" sx={{ width: '10%' }}>
+                      {index + 1}
+                    </TableCell>
+                    <TableCell align="center" sx={{ width: '20%' }}>
+                      {userRating.shop[0].name}
+                    </TableCell>
+                    <TableCell align="center" sx={{ width: '20%' }}>
+                      {Math.floor(userRating.star)}
+                      {[...new Array(userRating.star)].map((arr, index) => (
+                        <StarIcon
+                          sx={{ color: '#ff9800', fontSize: '32px' }}
+                          key={index}
+                        />
+                      ))}
+                      {[...new Array(5 - userRating.star)].map((arr, index) => (
+                        <StarOutlineIcon
+                          sx={{ color: '#ff9800', fontSize: '32px' }}
+                          key={index}
+                        />
+                      ))}
+                    </TableCell>
+                    <TableCell align="center"> {userRating.content}</TableCell>
+                    <TableCell align="center" sx={{ width: '10%' }}>
+                      <Button
+                        variant="contained"
+                        sx={{
+                          ':hover': {
+                            backgroundColor: '#ed4343',
+                          },
+                          color: 'black',
+                          backgroundColor: '#f45959',
+                          fontSize: '12px',
+                          fontWeight: '600',
+                        }}
+                        onClick={() => handleDeleteRating(userRating._id)}
+                      >
+                        削除
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </>
+          )}
         </Table>
       </TableContainer>
     </Container>

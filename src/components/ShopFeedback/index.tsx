@@ -201,7 +201,15 @@ const ShopFeedback = ({
             <Grid container spacing={2} sx={{ margin: '20px auto' }}>
               {shopInfo.photos.map((photo: PhotoInterface, index: number) => (
                 <Grid item xs={3} sm={3} md={3} key={index}>
-                  <img src={photo.photoUrl} key={index} />
+                  <img
+                    src={photo.photoUrl}
+                    key={index}
+                    style={{
+                      height: '200px',
+                      width: '270px',
+                      objectFit: 'cover',
+                    }}
+                  />
                 </Grid>
               ))}
             </Grid>

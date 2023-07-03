@@ -4,4 +4,5 @@ export const categoryDatas: string[] = [
   'エアコン',
   '日本語OK',
   'クレジットカード',
+  '綺麗',
 ];
