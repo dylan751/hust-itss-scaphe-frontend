@@ -84,7 +84,7 @@ export const EditProfile = ({ user }: EditProfileProps) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const [country, setCountry] = React.useState('');
+  const [country, setCountry] = React.useState(user.country);
 
   const handleChange = (event: SelectChangeEvent) => {
     setCountry(event.target.value as string);
@@ -176,6 +176,7 @@ export const EditProfile = ({ user }: EditProfileProps) => {
                 required
                 fullWidth
                 id="name"
+                defaultValue={user.name}
                 label="ユーザー名"
                 name="name"
                 autoFocus

@@ -22,12 +22,12 @@ const ProfilePage = () => {
     try {
       await ratingApi.deleteRating(ratingId);
     } catch (error) {
-      toast.error('Delete failed');
+      toast.error('削除が失敗しました！');
       console.log(error);
     }
 
     setUserRatings(userRatings.filter((rating) => rating._id !== ratingId));
-    toast.success('Delete succeed');
+    toast.success('削除できました！');
   };
 
   useEffect(() => {

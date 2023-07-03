@@ -22,7 +22,7 @@ const ShopList = ({ shops }: ShopListProps) => {
             color: '#f44336',
           }}
         >
-          There is no Coffee Shop found
+          コーヒーショップが見つかりません
         </Grid>
       )}
     </Container>

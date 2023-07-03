@@ -212,7 +212,7 @@ const ShopFeedback = ({
                 color: '#f44336',
               }}
             >
-              There is no Photo for this Shop
+              このショップの写真はありません
             </Grid>
           )}
         </>
