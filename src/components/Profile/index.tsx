@@ -65,23 +65,7 @@ const Profile = ({ user, userRatings, handleDeleteRating }: ProfileProps) => {
             <Typography
               sx={{ marginTop: '10px', fontSize: '20px', fontWeight: '500' }}
             >
-              国名: {user.country}
-            </Typography>
-            <Typography
-              sx={{
-                display: 'flex',
-                marginTop: '10px',
-                fontSize: '20px',
-                fontWeight: '500',
-              }}
-            >
-              ステータス:{' '}
-              <Grid
-                sx={{ marginLeft: '5px', color: '#0480e2', fontWeight: '600' }}
-              >
-                {' '}
-                アクティブ
-              </Grid>
+              国籍: {user.country}
             </Typography>
           </Grid>
         </Grid>
