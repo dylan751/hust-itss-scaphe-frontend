@@ -68,6 +68,7 @@ const ShopInfo = ({ shopInfo, shopRatings, cityDistricts }: ShopInfoProps) => {
           <CardMedia
             component="img"
             image={shopInfo.avatar}
+            // image=/assets/images/shop.png"
             alt="CafeShop"
             sx={{
               width: '300px',

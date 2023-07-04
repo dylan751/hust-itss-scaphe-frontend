@@ -47,10 +47,15 @@ const Navbar = () => {
           </LinkRoute>
           {user ? (
             <>
+              <Avatar
+                alt="Cafe Shop"
+                src={user.avatar}
+                sx={{ width: 50, height: 50, marginLeft: 'auto' }}
+              />
               <Button
                 href="/profile"
                 sx={{
-                  marginLeft: 'auto',
+                  marginLeft: '8px',
                   fontWeight: 700,
                   fontSize: '16px',
                   cursor: 'pointer',
