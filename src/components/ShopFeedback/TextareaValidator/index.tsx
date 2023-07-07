@@ -4,13 +4,14 @@ import Button from '@mui/joy/Button';
 import FormControl from '@mui/joy/FormControl';
 import Textarea from '@mui/joy/Textarea';
 import { Checkbox, Grid, Rating, Typography } from '@mui/material';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { ShopInterface } from '../../../models/shop';
 import { trafficDatas } from '../../../data/Shop/Traffic';
 import { CategoryInterface } from '../../../models/category';
 import ratingApi from '../../../services/ratingApi';
 import { CreateRatingRequestInterface, StarType } from '../../../models/rating';
 import { toast } from 'react-toastify';
+import { UserContext } from '../../../contexts/UserContext';
 
 interface ShopInfoProps {
   shopInfo: ShopInterface;
@@ -21,6 +22,8 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
   const [star, setStar] = useState<StarType>(3);
   const [isTrafficOk, setIsTrafficOk] = useState(false);
   const [selectedCategoryIds, setSelectedCategoryIds] = useState<string[]>([]);
+
+  const { user } = useContext(UserContext);
 
   const shopTraffic = trafficDatas.find(
     (traffic) => traffic.traffic === shopInfo.traffic,
@@ -48,7 +51,7 @@ const TextareaValidator = ({ shopInfo }: ShopInfoProps) => {
   const handleSendComment = async () => {
     const commentData: CreateRatingRequestInterface = {
       shopId: shopInfo._id,
-      userId: '647bf2c8a982007b6673d1ca', // TODO: Add user functions (This is just dummy user in DB for now)
+      userId: user._id,
       content,
       star,
       categoryIds: selectedCategoryIds,
