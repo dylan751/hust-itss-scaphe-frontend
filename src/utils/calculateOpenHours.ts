@@ -3,6 +3,7 @@
 import { format } from 'date-fns';
 import { ShopInterface } from '../models/shop';
 import { OpenHourInterface } from '../models/openHour';
+import { showDayJapanese } from './showDayJapanese';
 
 export const calculateOpenHours = (shopInfo: ShopInterface): string => {
   const today = new Date();
@@ -60,7 +61,7 @@ export const calculateOpenHours = (shopInfo: ShopInterface): string => {
     const [openHour, openMinute, openSecond] = openTime.split(':');
     const [closeHour, closeMinute, closeSecond] = closeTime.split(':');
     const date = `${openHour}:${openMinute} ~ ${closeHour}:${closeMinute} ${
-      dateToShow.day <= 7 ? `Thứ ${dateToShow.day}` : 'Chủ nhật'
+      dateToShow.day <= 7 ? `${showDayJapanese(dateToShow.day)}曜日` : '日曜日'
     }, ${parseInt(currentHour) >= 20 ? tomorrowDate : currentDate}`;
 
     return date;

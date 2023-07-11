@@ -92,7 +92,7 @@ const ShopInfo = ({ shopInfo, shopRatings, cityDistricts }: ShopInfoProps) => {
           </Typography>
           <Typography variant="h6">
             <CalendarMonthIcon sx={{ color: 'red', margin: '10px 12px' }} />
-            {openHour ? openHour : '8:00 ~ 22:00 Thứ 3, 11/07/2023'}
+            {openHour ? openHour : '8:00 ~ 22:00 火曜日, 11/07/2023'}
           </Typography>
         </Grid>
         <Grid sx={{ marginLeft: '12px' }}>
